@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- estilos personales -->
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <nav><div class="t-center"><img class="logo" src="img/logo.svg" alt=""></div></nav>
+        </header>
+        <main>
+            <div class="form-principal blocks round-up">
+                <h3 class="titulos t-center">Selecciona preparación</h3>
+                <form action="">
+                    <fieldset>
+                        <div>
+                            <select name="preparacion" class="app-form" aria-label="">
+                                <option value="1">Marraqueta</option>
+                                <option value="2">Hallullas</option>
+                                <option value="3">Hamburguesa</option>
+                                <option value="4">Ciabatta</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <h3 class="titulos t-center">Unidades</h3><input class="app-form" type="number" min="1"
+                                pattern="^[0-9]+" name="unidades" placeholder="Ingrese candidad.">
+                        </div>
+                        <div class="options space-t-20">
+                            <p class="t-center">
+                                <label class="toggle" for="uniqueID">
+                                    <input type="checkbox" class="toggle-input" id="uniqueID" />
+                                    <span class="toggle-track">
+                                        <span class="toggle-indicator">
+                                            <span class="checkMark">
+                                                <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation"
+                                                    aria-hidden="true">
+                                                    <path
+                                                        d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                    </span>
+                                    Tamaño pequeño</p>
+                            </label>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="">
+                    <input type="submit" value="¡Calcular!" class="btn space-t-20"></div>
+            </div>
+            <div class="resultado blocks">
+                <div class="print-area">
+                    <h3 class="titulos t-center">Receta de Marraquetas</h3>
+                    <p class="disclaimer t-center">Cantidades totales para <em>10 unidades.</em></p>
+                    <table class="data-table t-center">
+                        <thead>
+                            <tr>
+                                <th class="t-center">Ingrediente</th>
+                                <th class="t-center">Cantidad</th>
+                                <th class="t-center">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Harina 0000</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Agua</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Levadura</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Mantequilla</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Sal</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Azucar</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>Prefermento</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>H. Integral</td>
+                                <td>300 grs</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr><td></td>
+                                <td>Total masa</td>
+                                <td>1245 grs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="disclaimer t-center md-10 block-light">*Cantidades son referenciales <em>y pueden depender
+                            de <a href="">temperatura</a>,
+                            <a href="">calidad</a> y <a href="">porcentaje de proteína</a> del harina.</em></p>
+
+                    <p class="disclaimer t-center md-10 block-light">**Porcentajes son respecto a la cantidad de la
+                        harina de la
+                        receta.
+                        <em><a href="">Aprender más.</a></em></p>
+
+                    <p class="disclaimer t-center md-10 space-t-20">Receta generada por <em><a href="">Calculadora de
+                                Masas
+                                v1.0</a></em>
+                    </p>
+                </div>
+                <div><input type="reset" value="Descargar" class="btn space-t-10"></div>
+                <div class="t-center disclaimer space-t-30">Si te ha servido, regalame un <i
+                        class="fa-solid fa-mug-hot ico-social"></i></div>
+            </div>
+
+    </div>
+
+    </main>
+
+    <footer class="space-t-30">
+        <div class="t-center">
+            <span class="disclaimer ">Hecho con ♥ por Fabian Aguirre.</span>
+        </div>
+        <div class="main-social">
+            <ul>
+                <li><a href="http://www.facebook.com" target="_blank" title=" Visitanos en Facebook"><i
+                            class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="http://www.instagram.com" target="_blank" title=" Visitanos en Instagram"><i
+                            class="fa-brands fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+    </div>
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/c3512d579e.js" crossorigin="anonymous"></script>
+     <script src="js/scripts.js"></script>
+</body>
+
+</html>

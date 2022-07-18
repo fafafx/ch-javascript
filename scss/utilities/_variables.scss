@@ -1,0 +1,28 @@
+$main-font:"Poppins", sans-serif;
+$main-color:#645AB6;
+$main-light-color:#8f89c0;
+$main-ultra-light-color:#dfdbff;
+$btn-main-color:#cfc7f8;
+$btn-hover-color:#8f89c0;
+$main-flat-color:#ebedee;
+$main-flat-light-color:#f1efef;
+$main-text-color:#383838;
+$speed: 240ms;
+
+$toggle-indicator-size: 24px; // changing this number will resize the whole toggle
+$track-height: $toggle-indicator-size + 6;
+$track-width: $toggle-indicator-size * 2.5;
+$highContrastModeSupport: solid 2px transparent;
+/* 
+
+The following vars come from my theme. 
+You'll need to replace with your own color values. 
+
+- "$light"
+- "$mid"
+- "$dark"
+
+*/
+$track-border: #827cae;
+$track-background: $main-light-color;
+$focus-ring: 0px $main-color;
