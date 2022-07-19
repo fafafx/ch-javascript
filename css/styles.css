@@ -35,8 +35,7 @@ h5 {
 
 header {
   background: #645AB6;
-  width: 100vw;
-  height: 60px;
+  height: 80px;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -211,7 +210,6 @@ ahover {
   text-decoration: underline;
 }
 
-/* Media Queries */
 .blocks {
   padding: 0px 30px 10px 30px;
 }
@@ -385,7 +383,7 @@ nav ul a {
 }
 
 #boton-top {
-  display: none;
+  display: block;
   width: 4rem;
   height: 4rem;
   position: fixed;
@@ -415,6 +413,14 @@ nav ul a {
   width: 95%;
   height: 75px;
   max-width: 1000px;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  select {
+    background-position-x: 98%;
+    background-position-y: 23px;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

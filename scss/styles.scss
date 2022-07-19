@@ -29,8 +29,7 @@ h5 {
 
 header {
     background: $main-color;
-    width: 100vw;
-    height: 60px;
+    height: 80px;
     position: sticky;
     top: 0;
     z-index: 2;
@@ -221,18 +220,6 @@ a {
         text-decoration: underline;
     }
 }
-
-/* Media Queries */
-
-// Tablets
-@media (min-width: 768px) {}
-
-// Desktop
-
-@media (min-width: 992px) {}
-
-// Big Screens
-@media (min-width: 1200px) {}
 
 .blocks {
     padding: 0px 30px 10px 30px;
@@ -430,7 +417,7 @@ nav ul a {
 }
 
 #boton-top {
-    display: none;
+    display: block;
     width: 4rem;
     height: 4rem;
     position: fixed;
@@ -463,3 +450,23 @@ nav ul a {
 
 
 }
+
+/* Media Queries */
+
+// Tablets
+@media (min-width: 768px) {
+
+    select {
+        background-position-x: 98%;
+        background-position-y: 23px;
+    
+    }
+}
+
+// Desktop
+
+@media (min-width: 992px) {}
+
+// Big Screens
+@media (min-width: 1200px) {}
+
