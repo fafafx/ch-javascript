@@ -1,107 +1,208 @@
-// Confirma si se quiere iniciar el cálculo.
+// Acá irá una función que eventualmente traerá datos por externos y creará un array.
 
-if (confirm("¿Deseas iniciar el cálculo?") == true) {
-    console.log("Cálculo iniciado.");
+//Funcion que crea objectos
 
-    //funcion que crea el objeto
-
-    function Pan(nombre, harina, agua, levadura, sal, grasa, conMasaMadre) {
-        this.nombre = nombre;
-        this.harina = harina;
-        this.agua = agua;
-        this.levadura = levadura;
-        this.sal = sal;
-        this.grasa = grasa;
-        this.conMasaMadre = conMasaMadre;
-    }
-
-
-    //se crea el objeto
-    const pan1 = new Pan("Ciabatta", 73, 42, 1, 2, 10, true);
-    const pan2 = new Pan("Hallulla", 50, 30, 1, 2, 20, false);
-    const pan3 = new Pan("Marraqueta", 50, 30, 1, 2, 20, false);
-    const pan4 = new Pan("Bocado de Dama", 50, 30, 1, 2, 20, false);
-    const pan5 = new Pan("Baguette", 50, 30, 1, 2, 20, true);
-    const pan6 = new Pan("Brioche", 50, 30, 1, 2, 20, false);
-    const pan7 = new Pan("Bollo", 50, 30, 1, 2, 20, true);
-    const pan8 = new Pan("Hogaza", 50, 30, 1, 2, 20, true);
-    const pan9 = new Pan("Frica", 50, 30, 1, 2, 20, false);
-    const pan10 = new Pan("Amasado", 50, 30, 1, 2, 20, false);
-    //se crea un array vacio ene spera de llenarlo.
-    const filtro = [];
-    //crea una array con los objetos pan.
-    const recetas = [pan1, pan2, pan3, pan4, pan5, pan6, pan7, pan8, pan9, pan10];
-
-    //filtra el array seleccionando los objetos que su propiedad conMasaMadre sea true.
-
-    const tieneMasaMadre = recetas.filter((m) => m.conMasaMadre === true);
-    tieneMasaMadre.forEach(function (item) {
-        //Agrega los resultados al array filtro
-        filtro.push(item.nombre);
-    });
-    // almacena el array filtro a una variable, pero lo convierte a un string.
-    let filtrado = filtro.toString();
-
-
-    // Solicita ingreso de cantidad de panes que se requiere.
-    let cantidadPanes = parseInt(prompt("¿Cuantas unidades deseas preparar?\n (minimo 5 unidades) "));
-    let totalHarina = pan1.harina * cantidadPanes;
-
-
-    // Funcion porcentajePanadero calcula que porcentaje es cada ingrediente del total de la mezcla, considerando que la Harina SIEMPRE sera el 100%.
-
-    function porcentajePanadero() {
-        porcentajeHarina = Math.ceil(((pan1.harina * cantidadPanes) / totalHarina) * 100);
-        porcentajeAgua = Math.ceil(((pan1.agua * cantidadPanes) / totalHarina) * 100);
-        porcentajeSal = Math.ceil(((pan1.sal * cantidadPanes) / totalHarina) * 100);
-        porcentajeLevadura = Math.ceil(((pan1.levadura * cantidadPanes) / totalHarina) * 100);
-        porcentajeGrasa = Math.ceil(((pan1.grasa * cantidadPanes) / totalHarina) * 100);
-    }
-
-    porcentajePanadero();
-
-
-    // Verifica si la cantidad ingresada es mayor al minimo.
-
-    do {
-        if (cantidadPanes < 5) {
-            console.log("Ingresó menos de 5 unidades. Repita.")
-            cantidadPanes = parseInt(prompt("¿Cuantas unidades deseas preparar?\n (minimo 5 unidades) "));
-        } else {
-            console.log("Cantidad ingresada OK.")
-
-        }
-
-    } while (cantidadPanes < 5);
-    // Comienza la elección del tipo de pan, para mostrar las cantidades.
-    console.log("Preparando " + cantidadPanes + " panes.");
-    console.log("Selecciona el tipo de pan");
-    let seleccionPan = prompt("Selecciona tu receta:\n1.- Ciabatta\n2.- Hallulla\nPresiona C para cancelar.");
-    console.log("La opción seleccionada es " + seleccionPan);
-
-    while (seleccionPan != "C" || seleccionPan != "c") {
-        console.log("Switch de selección");
-        switch (seleccionPan) {
-            case "1":
-                console.log("Ciabatta");
-                alert("Para preparar " + cantidadPanes + " " + pan1.nombre + " necesitas:\n" + pan1.harina * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeHarina + "%.)\n" + pan1.levadura * cantidadPanes + " grs. de levadura. (Porcentaje panadero: " + porcentajeLevadura + "%.)\n" + pan1.agua * cantidadPanes + " grs. de agua. (Porcentaje panadero: " + porcentajeAgua + "%.)\n" + pan1.sal * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeSal + "%.)\n" + pan1.grasa * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeGrasa + "%.)\n");
-                break;
-            case "2":
-                console.log("Hallulla");
-                totalHarina = pan2.harina * cantidadPanes;
-                alert("Para preparar " + cantidadPanes + " " + pan1.nombre + " necesitas:\n" + pan1.harina * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeHarina + "%.)\n" + pan1.levadura * cantidadPanes + " grs. de levadura. (Porcentaje panadero: " + porcentajeLevadura + "%.)\n" + pan1.agua * cantidadPanes + " grs. de agua. (Porcentaje panadero: " + porcentajeAgua + "%.)\n" + pan1.sal * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeSal + "%.)\n" + pan1.grasa * cantidadPanes + " grs. (Porcentaje panadero: " + porcentajeGrasa + "%.)\n");
-                break;
-            default:
-                alert("La opción elegida no existe.");
-                break;
-        }
-        console.log("Terminado.");
-        alert("Esta calculadora tiene disponible " + recetas.length + " recetas de pan, de las cuales las siguientes utilizan prefermentos o masa madre en vez de levadura: " + filtrado + ".");
-        alert("Gracias por usar la calculadora de masas.")
-
-        break;
-
-    }
-} else {
-    console.log("Has cancelado la operación.");
+function Pan(id, nombre, harina, agua, levadura, sal, grasa, descripcion, conMasaMadre) {
+    this.id = id;
+    this.nombre = nombre;
+    this.harina = harina;
+    this.agua = agua;
+    this.levadura = levadura;
+    this.sal = sal;
+    this.grasa = grasa;
+    this.descripcion = descripcion;
+    this.conMasaMadre = conMasaMadre;
 }
+
+//se crean los objetos
+const pan1 = new Pan(1, "Ciabatta", 100, 100, 100, 100, 100, "Descripcion de Ciabatta", true);
+const pan2 = new Pan(2, "Hallulla", 50, 30, 1, 2, 20, "Descripcion de Hallulla", false);
+const pan3 = new Pan(3, "Marraqueta", 50, 30, 1, 2, 20, "Descripcion de Marraqueta", false);
+const pan4 = new Pan(4, "Bocado de Dama", 50, 30, 1, 2, 20, "Bocado de Dama", false);
+const pan5 = new Pan(5, "Baguette", 50, 30, 1, 2, 20, "Descripcion de Bocado de dama", true);
+const pan6 = new Pan(6, "Brioche", 50, 30, 1, 2, 20, "Descripcion de Brioche", false);
+const pan7 = new Pan(7, "Bollo", 50, 30, 1, 2, 20, "Descripcion de Bollo", true);
+const pan8 = new Pan(8, "Hogaza", 50, 30, 1, 2, 20, "Descripcion de Hogaza", true);
+const pan9 = new Pan(9, "Frica", 50, 30, 1, 2, 20, "Descripcion de Frica", false);
+const pan10 = new Pan(10, "Amasado", 50, 30, 1, 2, "Descripcion de Amasado", 20, false);
+
+//se crea el array con todos los objetos
+const totalRecetas = [pan1, pan2, pan3, pan4, pan5, pan6, pan7, pan8, pan9, pan10];
+const selectPrincipal = document.getElementById("select-receta");
+
+
+// Referencia a boton dentro del DOM 
+const btnCalcularReceta = document.getElementById("btnCalcular");
+const btnDescargarReceta = document.getElementById("btnDescargar");
+const btnCoffee = document.getElementById("coffee");
+// temporal para revisar si funciona el check.
+/* let gramaje = false; */
+
+function calculaReceta(calcula) {
+    let contenidoResultante = document.getElementById("to-print");
+    let idSeleccionado = parseInt(document.getElementById("select-receta").value);
+    let contenido = document.querySelector("#informacion");
+    let recetaEncabezado = document.querySelector("#recetaHeader");
+    let cambiaTamano = document.getElementById("gramaje-unidad").checked;
+    let tamano = 1;
+    let tamanoPieza = "normal";
+    let cantidadPanes = document.getElementById("cantidad").value;
+    let errorReceta = document.querySelector("#error-receta");
+    let errorCantidad = document.querySelector("#error-cantidad");
+    // Valida que haya una receta seleccionada y que el campo cantidad no esté vacío.
+
+    if (idSeleccionado == 0) {
+        errorReceta.style.display = "block";
+        calcula.preventDefault();
+
+    } else {
+        errorReceta.style.display = "none";
+        if (cantidadPanes !== "") {
+
+
+            //Chequea si el toggle de tamaño está marcado, y reduce los valores a un 80%
+
+            if (cambiaTamano) {
+                tamano = 0.8;
+                tamanoPieza = "pequeño";
+            } else {
+                console.log("Se mantiene la proporcion original");
+            };
+
+            // Filtra array por id
+
+            let recetaFiltrada = totalRecetas.filter(receta => receta.id == idSeleccionado);
+
+            // Crea variabkes desde ese array
+            let nombre = recetaFiltrada[0].nombre;
+            let harina = recetaFiltrada[0].harina;
+            let agua = recetaFiltrada[0].agua;
+            let levadura = recetaFiltrada[0].levadura;
+            let sal = recetaFiltrada[0].sal;
+            let grasa = recetaFiltrada[0].grasa;
+            let descripcion = recetaFiltrada[0].descripcion;
+            let conMasaMadre = recetaFiltrada[0].conMasaMadre;
+            let alertaMM = ("");
+            let nombreImagen = (nombre).toLowerCase(); // falta la funcion que en el caso que el nombre tenga varias palabras, seleccione solo la primera.
+
+            if (conMasaMadre == true) {
+                alertaMM = (`<span class="aviso">(*)</span>`);
+            } else {};
+
+            //Variables para operar
+
+
+            let harinaTotal = Math.ceil((harina * cantidadPanes) * tamano);
+            let aguaTotal = Math.ceil((agua * cantidadPanes) * tamano);
+            let levaduraTotal = Math.ceil((levadura * cantidadPanes) * tamano);
+            let salTotal = Math.ceil((sal * cantidadPanes) * tamano);
+            let grasaTotal = Math.ceil((grasa * cantidadPanes) * tamano);
+            let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
+
+
+
+
+            function porcentajePanadero() {
+                porcentajeHarina = Math.ceil((harinaTotal / harinaTotal) * 100);
+                porcentajeAgua = Math.ceil((aguaTotal / harinaTotal) * 100);
+                porcentajeLevadura = Math.ceil((levaduraTotal / harinaTotal) * 100);
+                porcentajeSal = Math.ceil((salTotal / harinaTotal) * 100);
+                porcentajeGrasa = Math.ceil((grasaTotal / harinaTotal) * 100);
+
+            }
+
+            porcentajePanadero();
+            let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
+
+            //Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
+
+            let recetaHeader = `
+        <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
+        <h3 class="titulos t-center">${nombre}</h3>
+        <hr>
+        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${gramajeUnidad} gramos aproximadamente (Tamaño ${tamanoPieza}).
+        </em></p>
+
+`;
+
+
+
+            let recetaData = `
+        <tr>
+        <td>Harina</td>
+        <td>${harinaTotal} grs.</td>
+        <td>${porcentajeHarina}%</td>
+        </tr>
+
+        <tr>
+        <td>Agua</td>
+        <td>${aguaTotal} grs.</td>
+        <td>${porcentajeAgua}%</td>
+        </tr>
+
+        <tr>
+        <td>Levadura ${alertaMM}</td>
+        <td>${levaduraTotal} grs.</td>
+        <td>${porcentajeLevadura}%</td>
+        </tr>
+
+        <tr>
+        <td>Sal</td>
+        <td>${salTotal} grs.</td>
+    <td>${porcentajeSal}%</td>
+    </tr>
+
+    <tr>
+    <td>Materia grasa</td>
+    <td>${grasaTotal} grs.</td>
+    <td>${porcentajeGrasa}%</td>
+    </tr>
+
+    <tr>
+    <td></td>
+    <td>Total masa</td>
+    <td>${masaTotal} grs.</td>
+    </tr>
+        `;
+
+            //Se rellenan los bloques HTML
+
+            recetaEncabezado.innerHTML = "";
+            recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
+            contenido.innerHTML = "";
+            contenido.insertAdjacentHTML('afterbegin', recetaData);
+            errorCantidad.style.display = "none";
+            contenidoResultante.style.display = "block";
+        } else {
+            errorCantidad.style.display = "block";
+            calcula.preventDefault();
+            }
+    }
+
+
+
+};
+
+function descargaReceta() {
+    alert("Descargar PDF de la receta");
+}
+function modalCoffee() {
+    alert("holi");
+}
+
+// Se agrega el listener al boton y se ejecuta funcion al hacer click.
+
+btnCalcularReceta.addEventListener("click", calculaReceta);
+btnDescargarReceta.addEventListener("click", descargaReceta);
+btnCoffee.addEventListener("click", modalCoffee);
+
+
+function validaentradas() { 
+    if (idSeleccionado == 0) {
+        errorReceta.style.display = "block";
+        calcula.preventDefault();
+
+    } else { };
+};
+
+// Notas para mi:faltan las validaciones de formulario. La forma en que se generarán los objetos, quizá se verá en la clase de json, 

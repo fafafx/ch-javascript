@@ -7,31 +7,3 @@
     box-sizing: border-box;
 
 }
-
-
-@mixin estilo-cajas {
-
-    background: rgba(255, 255, 255, 0.2) !important;
-    background: -webkit-linear-gradient(top left, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2)) !important;
-    background: -moz-linear-gradient(top left, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2)) !important;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2)) !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-    background-position: bottom !important;
-    border-radius: 1rem !important;
-    overflow: hidden !important;
-}
-
-@mixin estilo-cajas-tech {
-
-    background: rgba(255, 255, 255, 0.2);
-    background: -webkit-linear-gradient(top left, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2));
-    background: -moz-linear-gradient(top left, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2));
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 1.0), rgba(244, 235, 240, 0.2));
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: bottom;
-    border: 0px !important;
-}

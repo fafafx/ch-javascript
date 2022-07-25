@@ -10,38 +10,49 @@
     <meta name="keywords" content="">
     <!-- estilos personales -->
     <link rel="stylesheet" href="css/styles.css">
-    <title>Document</title>
+    <title>Calculadora de masas - Proyecto de JS Coder</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            
+        <nav class="t-center">
+            <p><a href="index.html"><img class="logo" src="img/logo.png" alt=""></a></p>
         </nav>
     </header>
     <div class="main-container">
-
         <main>
-            <div class="form-principal blocks space-t-30">
+            <h2 class="space-t-30"> Bienvenidos a la calculadora de masas</h2>
+            <hr class="space-t-10 md-10">
+            <p class="justify"> Esta herramienta le ayudará a simplificar el calculo de insumos necesarios
+                para producir distintos tipos de Pan.</p>
+
+            <hr class="space-t-10">
+            <div class="form-principal">
                 <h3 class="titulos t-center">Selecciona preparación</h3>
                 <form action="">
                     <fieldset>
-                        <div>
-                            <select name="preparacion" class="app-form" aria-label="">
-                                <option value="1">Marraqueta</option>
-                                <option value="2">Hallullas</option>
-                                <option value="3">Hamburguesa</option>
-                                <option value="4">Ciabatta</option>
+                        <div class="selectReceta">
+                            <select id="select-receta" name="preparacion" class="app-form" aria-label="" required>
+                                <option value="0" disabled selected hidden>Seleccione receta</option>
+                                <option value="1">Ciabatta</option>
+                                <option value="2">Hallulla</option>
+                                <option value="3">Marraqueta</option>
                             </select>
+                            <span id="error-receta" class="error"><i class="fa-solid fa-triangle-exclamation"></i> Debe
+                                seleccionar una receta.</span>
+
                         </div>
                         <div class="">
-                            <h3 class="titulos t-center">Unidades</h3><input class="app-form" type="number" min="1"
-                                pattern="^[0-9]+" name="unidades" placeholder="Ingrese candidad.">
+                            <h3 class="titulos t-center">Unidades</h3><input id="cantidad" class="app-form"
+                                type="number" min="1" pattern="^[0-9]+" name="cantidades"
+                                placeholder="Ingrese candidad.">
+                            <span id="error-cantidad" class="error"><i class="fa-solid fa-triangle-exclamation"></i>
+                                Ingrese cantidad de unidades a calcular.</span>
                         </div>
                         <div class="options space-t-20">
                             <p class="t-center">
-                                <label class="toggle" for="uniqueID">
-                                    <input type="checkbox" class="toggle-input" id="uniqueID" />
+                                <label class="toggle" for="gramaje-unidad">
+                                    <input type="checkbox" class="toggle-input" id="gramaje-unidad" />
                                     <span class="toggle-track">
                                         <span class="toggle-indicator">
                                             <span class="checkMark">
@@ -60,13 +71,19 @@
                     </fieldset>
                 </form>
                 <div class="">
-                    <input type="submit" value="¡Calcular!" class="btn space-t-20"></div>
+                    <hr class="space-t-20 md-20">
+                    <p class="disclaimer justify"><em> Las recetas son estandarizadas y permiten calcular 2 tamaños:
+                            estándar y pequeño (un 80% del normal).</em></p>
+                    <input id="btnCalcular" type="submit" value="¡Calcular!" class="btn space-t-20">
+                </div>
             </div>
-            <div class="resultado blocks">
+            <div id="to-print" class="resultado">
+
                 <div class="print-area">
-                    <h3 class="titulos t-center">Receta de Marraquetas</h3>
-                    <p class="disclaimer t-center">Cantidades totales para <em>10 unidades de 100 gramos.</em></p>
+                    <div id="recetaHeader">
+                    </div>
                     <table class="data-table t-center">
+                        <!-- Cabecera de la tabla -->
                         <thead>
                             <tr>
                                 <th class="t-center">Ingrediente</th>
@@ -74,81 +91,48 @@
                                 <th class="t-center">%</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Harina 0000</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Agua</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Levadura</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Mantequilla</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Sal</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Azucar</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>Prefermento</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td>H. Integral</td>
-                                <td>300 grs</td>
-                                <td>100%</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Total masa</td>
-                                <td>1245 grs</td>
-                            </tr>
+                        <tbody id="informacion">
+                            <!-- Inicio de tabla y cantidades de ingredientes -->
+
+                            <!-- Cierre de la tabla y suma de cantidades -->
+
                         </tbody>
                     </table>
 
-                    <p class="disclaimer t-center md-10 block-light">*Cantidades son referenciales <em>y pueden depender
+                    <h4 class="descripcion">Descripción</h4>
+                    <p class="description justify md-20">La Marraqueta/Pan Frances/Pan Batido, es un tipo de pan,
+                        alargado con
+                        una cortadura en el medio. También se llama así a un pan con incisiones que se hornea como una
+                        sola pieza que luego es fácil de separar. Al igual que muchas palabras que termina en -eta (
+                        bayoneta, bicicleta, etiqueta y servilleta) es de origen francés.</p>
+                    <hr>
+                    <p class="disclaimer t-center md-10 block-light space-t-10">*La levadura (fresca o seca) puede
+                        reemplazarse con prefermentos y/o masa madre. <a href=""><em>Consultar el procedimiento
+                                aqui</a></em></p>
+                    <p class="disclaimer t-center md-10 block-light space-t-10">**Cantidades son referenciales <em>y
+                            pueden depender
                             de <a href="">temperatura</a>,
                             <a href="">calidad</a> y <a href="">porcentaje de proteína</a> del harina.</em></p>
 
-                    <p class="disclaimer t-center md-10 block-light">**Porcentajes son respecto a la cantidad de la
-                        harina de la
-                        receta.
-                        <em><a href="">Aprender más.</a></em></p>
+                    <p class="disclaimer t-center md-10 block-light">***Porcentajes son respecto a la <em>cantidad de
+                            harina de la receta (Porcentaje Panadero).
+                            <a href="">Aprender más.</a></em></p>
 
                     <p class="disclaimer t-center md-10 space-t-20">Receta generada por <em><a href="">Calculadora de
                                 Masas
                                 v1.0</a></em>
                     </p>
                 </div>
-                <div><input type="reset" value="Descargar" class="btn space-t-10"></div>
-                <div class="t-center disclaimer space-t-30">Si te ha servido, regalame un <i
-                        class="fa-solid fa-mug-hot ico-social"></i></div>
+                <div><input id="btnDescargar" type="submit" value="Descargar" class="btn space-t-10"></div>
+
             </div>
-
+            <div class="t-center disclaimer space-t-30"><a id="coffee" href="#"> Si te ha servido, regalame un <i
+                        class="fa-solid fa-mug-hot ico-social"></i></a></div>
+        </main>
     </div>
-
-    </main>
-
     <footer class="space-t-30">
-        <div class="t-center">
-            <span class="disclaimer ">Hecho con ♥ por Fabian Aguirre.</span>
+        <div class="t-center footer-info">
+            <span class="disclaimer t-center">Hecho con ♥ por Fabian Aguirre.</span>
         </div>
         <div class="main-social">
             <ul>
@@ -159,9 +143,10 @@
             </ul>
         </div>
     </footer>
-    </div>
+
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/c3512d579e.js" crossorigin="anonymous"></script>
+    <!-- <script src="js/scripts.js"></script> -->
     <script src="js/scripts.js"></script>
 </body>
 

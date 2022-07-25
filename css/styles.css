@@ -1,15 +1,5 @@
 /* Import de fuentes */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-/* 
-
-The following vars come from my theme. 
-You'll need to replace with your own color values. 
-
-- "$light"
-- "$mid"
-- "$dark"
-
-*/
 * {
   /* Reset general */
   border: 0;
@@ -23,6 +13,9 @@ body {
   font-family: "Poppins", sans-serif;
   text-rendering: geometricPrecision;
   color: #383838;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 h1,
@@ -34,11 +27,23 @@ h5 {
 }
 
 header {
+  display: flex;
   background: #645AB6;
   height: 80px;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
+}
+header p {
+  display: flex;
+  justify-content: center;
+}
+
+.main-container {
+  flex: 1;
+  width: 85%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .options {
@@ -46,11 +51,6 @@ header {
 }
 
 /*Toggle*/
-.logo {
-  width: 150px;
-  height: 20px;
-}
-
 .toggle {
   align-items: center;
   border-radius: 100px;
@@ -60,6 +60,10 @@ header {
 }
 .toggle:last-of-type {
   margin: 0;
+}
+
+#to-print {
+  display: none;
 }
 
 .toggle-input {
@@ -73,7 +77,7 @@ header {
 }
 .toggle-input:not([disabled]):active + .toggle-track, .toggle-input:not([disabled]):focus + .toggle-track {
   border: 1px solid transparent;
-  box-shadow: 0px #645AB6;
+  box-shadow: 3px #645AB6;
 }
 .toggle-input:disabled + .toggle-track {
   cursor: not-allowed;
@@ -184,7 +188,15 @@ header {
 }
 
 .disclaimer {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+}
+
+.description {
+  font-size: 0.9rem;
+}
+
+.justify {
+  text-align: justify;
 }
 
 .block-light {
@@ -204,24 +216,26 @@ select {
 }
 
 a {
+  font-weight: 500;
   text-decoration: none;
 }
 ahover {
   text-decoration: underline;
 }
 
-.blocks {
-  padding: 0px 30px 10px 30px;
-}
-
-.main-container {
-  max-width: 1000px;
-  margin: 0 auto;
+.aviso {
+  color: red;
+  font-weight: 300;
 }
 
 main {
   width: 100%;
-  margin: 0 auto;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  padding: 5px;
 }
 
 .app-form {
@@ -288,6 +302,7 @@ main {
   display: flex;
   list-style: none;
   padding: 0;
+  justify-content: center;
 }
 .main-social ul li a {
   padding: 0.5rem;
@@ -307,18 +322,21 @@ main {
 
 footer {
   width: 100%;
-  margin: 0 auto;
   padding: 100px 0px 80px 0px;
   background: #ebedee;
+  justify-content: center;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: center;
 }
 
 hr {
-  border: 0.5px solid #dfdbff;
+  border: 1px dotted #dfdbff;
   width: 100%;
-}
-
-.logo {
-  padding: 20px;
 }
 
 .links-social {
@@ -335,14 +353,6 @@ hr {
 .links-social ul li a {
   padding: 0.5rem;
   font-size: 2.5rem;
-  color: #fd746c;
-}
-
-a {
-  color: #c35852;
-}
-
-a:hover {
   color: #fd746c;
 }
 
@@ -413,6 +423,13 @@ nav ul a {
   width: 95%;
   height: 75px;
   max-width: 1000px;
+}
+
+.error {
+  color: rgb(192, 0, 0);
+  font-size: 0.9em;
+  padding: 10px;
+  display: none;
 }
 
 /* Media Queries */

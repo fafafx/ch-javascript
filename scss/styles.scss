@@ -17,6 +17,9 @@ body {
     font-family: $main-font;
     text-rendering: geometricPrecision;
     color: $main-text-color;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 h1,
@@ -28,11 +31,25 @@ h5 {
 }
 
 header {
+    display: flex;
     background: $main-color;
     height: 80px;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 3;
+
+    p {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.main-container {
+    flex: 1;
+    width: 85%;
+    max-width: 1000px;
+    margin: 0 auto;
+
 }
 
 .options {
@@ -40,10 +57,11 @@ header {
 }
 
 /*Toggle*/
-.logo{width: 150px; height:20px; }
 
 
-// Toggle specific styles
+
+
+// Estilos especificos del control toggle
 .toggle {
     align-items: center;
     border-radius: 100px;
@@ -55,6 +73,12 @@ header {
         margin: 0;
     }
 }
+
+#to-print {
+    display: none;
+
+}
+
 
 // Since we can't style the checkbox directly, we "hide" it so we can draw the toggle.
 .toggle-input {
@@ -192,8 +216,17 @@ header {
 }
 
 .disclaimer {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 
+}
+
+.description {
+    font-size: 0.9rem;
+
+}
+
+.justify {
+    text-align: justify;
 }
 
 .block-light {
@@ -201,6 +234,7 @@ header {
     border-radius: 8px;
     padding: 10px;
 }
+
 
 select {
     -webkit-appearance: none;
@@ -214,27 +248,30 @@ select {
 }
 
 a {
+    font-weight: 500;
     text-decoration: none;
 
     &hover {
         text-decoration: underline;
+
     }
 }
 
-.blocks {
-    padding: 0px 30px 10px 30px;
-}
-
-
-.main-container {
-
-    max-width: 1000px;
-    margin: 0 auto;
+.aviso {
+    color: red;
+    font-weight: 300;
 }
 
 main {
     width: 100%;
-    margin: 0 auto;
+
+}
+
+.logo {
+
+    width: 70px;
+    height: 70px;
+    padding: 5px;
 }
 
 .app-form {
@@ -307,6 +344,7 @@ main {
         display: flex;
         list-style: none;
         padding: 0;
+        justify-content: center;
 
         li a {
             padding: 0.5rem;
@@ -329,21 +367,26 @@ main {
 
 footer {
     width: 100%;
-    margin: 0 auto;
     padding: 100px 0px 80px 0px;
     background: $main-flat-color;
-    
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
 }
 
 hr {
-    border: 0.5px solid $main-ultra-light-color;
+    border: 1px dotted $main-ultra-light-color;
     width: 100%;
-   
+
 }
 
-.logo {
-    padding: 20px;
-}
+
 
 .links-social {
     display: flex;
@@ -359,16 +402,6 @@ hr {
 .links-social ul li a {
     padding: 0.5rem;
     font-size: 2.5rem;
-    color: #fd746c;
-}
-
-
-
-a {
-    color: #c35852;
-}
-
-a:hover {
     color: #fd746c;
 }
 
@@ -451,6 +484,13 @@ nav ul a {
 
 }
 
+.error {
+    color: rgb(192, 0, 0);
+    font-size: 0.9em;
+    padding: 10px;
+    display: none;
+}
+
 /* Media Queries */
 
 // Tablets
@@ -459,7 +499,7 @@ nav ul a {
     select {
         background-position-x: 98%;
         background-position-y: 23px;
-    
+
     }
 }
 
@@ -470,3 +510,6 @@ nav ul a {
 // Big Screens
 @media (min-width: 1200px) {}
 
+// Impresión
+
+@media print {}
