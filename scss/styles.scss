@@ -156,7 +156,7 @@ header {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 25px 0px 0px 0px;
     font-size: 1em;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
@@ -199,6 +199,7 @@ header {
     font-weight: 700;
     color: $main-color;
     transition: 0.3s;
+    cursor: pointer;
 
 }
 
@@ -235,6 +236,31 @@ header {
     padding: 10px;
 }
 
+.agregaLibreta {
+    width: 250px;
+    margin: 0 auto;
+    background-color: $main-color;
+    padding: 5px;
+    color: $main-flat-color;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+
+}
+
+#libreta {
+    background-color: #fff;
+    display: none;
+}
+
+.bottom-tab {
+    font-size: 1.1rem;
+
+}
 
 select {
     -webkit-appearance: none;
@@ -244,6 +270,7 @@ select {
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y: 23px;
+    cursor:pointer;
 
 }
 
@@ -491,6 +518,68 @@ nav ul a {
     display: none;
 }
 
+//Estilos de la libreta de recetas.
+
+.libretaRecetas {
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    z-index: 4;
+
+
+
+    table {
+        width: 100% !important;
+        background-color: #fff;
+        margin: 0px;
+        padding: 0;
+        display: none;
+
+    }
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.abreLibreta {
+    position: relative;
+    background-color: $main-color;
+    color: #fff;
+    width: 250px;
+    height: 45px;
+    margin: 0 auto;
+    padding: 5px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+
+.bigIcon {
+    font-size: 24px;
+    color: $main-color;
+    margin: 0 10px;
+}
+
+.mediumIcon {
+    font-size: 24px;
+    color: $main-color;
+    margin: 0;
+    padding: 0
+}
+
+.muestra {
+    display: block !important;
+
+}
+
 /* Media Queries */
 
 // Tablets
@@ -501,6 +590,8 @@ nav ul a {
         background-position-y: 23px;
 
     }
+
+
 }
 
 // Desktop

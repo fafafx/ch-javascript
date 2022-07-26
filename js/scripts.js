@@ -1,3 +1,9 @@
+// Deshabilita funcion submit del formulario.
+
+document.getElementById('formulario').addEventListener('submit', function (evt) {
+    evt.preventDefault();
+})
+
 // Acá irá una función que eventualmente traerá datos por externos y creará un array.
 
 //Funcion que crea objectos
@@ -14,29 +20,38 @@ function Pan(id, nombre, harina, agua, levadura, sal, grasa, descripcion, conMas
     this.conMasaMadre = conMasaMadre;
 }
 
-//se crean los objetos
+//se crean los objetos, se reemplazará con la generacion de esta info desde JSON.
+
 const pan1 = new Pan(1, "Ciabatta", 100, 100, 100, 100, 100, "Descripcion de Ciabatta", true);
 const pan2 = new Pan(2, "Hallulla", 50, 30, 1, 2, 20, "Descripcion de Hallulla", false);
 const pan3 = new Pan(3, "Marraqueta", 50, 30, 1, 2, 20, "Descripcion de Marraqueta", false);
 const pan4 = new Pan(4, "Bocado de Dama", 50, 30, 1, 2, 20, "Bocado de Dama", false);
 const pan5 = new Pan(5, "Baguette", 50, 30, 1, 2, 20, "Descripcion de Bocado de dama", true);
 const pan6 = new Pan(6, "Brioche", 50, 30, 1, 2, 20, "Descripcion de Brioche", false);
-const pan7 = new Pan(7, "Bollo", 50, 30, 1, 2, 20, "Descripcion de Bollo", true);
+const pan7 = new Pan(7, "Croissant", 50, 30, 1, 2, 20, "Descripcion de Croissant", true);
 const pan8 = new Pan(8, "Hogaza", 50, 30, 1, 2, 20, "Descripcion de Hogaza", true);
 const pan9 = new Pan(9, "Frica", 50, 30, 1, 2, 20, "Descripcion de Frica", false);
-const pan10 = new Pan(10, "Amasado", 50, 30, 1, 2, "Descripcion de Amasado", 20, false);
+const pan10 = new Pan(10, "Amasado", 50, 30, 1, 2, 20, "Descripcion de Amasado", false);
 
 //se crea el array con todos los objetos
 const totalRecetas = [pan1, pan2, pan3, pan4, pan5, pan6, pan7, pan8, pan9, pan10];
-const selectPrincipal = document.getElementById("select-receta");
 
+// Se genera el select usando map desde el array totalRecetas. falta generar ese array desde JSON. Con el tiempo se implementará un buscador de texto que se autocomplete tipo google. 
 
-// Referencia a boton dentro del DOM 
+let opcionesSelect = totalRecetas.map(e => {
+    return `<option value="${e.id}">${e.nombre}</option>`
+})
+document.getElementById("select-receta").innerHTML = '<option value="0" disabled selected hidden>Seleccione receta...</option>' + opcionesSelect;
+
+// Referencia a elementos dentro del DOM 
 const btnCalcularReceta = document.getElementById("btnCalcular");
 const btnDescargarReceta = document.getElementById("btnDescargar");
 const btnCoffee = document.getElementById("coffee");
-// temporal para revisar si funciona el check.
-/* let gramaje = false; */
+const abreLibreta = document.getElementById("abre-libreta");
+const libreta = document.querySelector("#libreta");
+const anotarLibreta = document.querySelector("#anotar");
+
+// Funcion Principal
 
 function calculaReceta(calcula) {
     let contenidoResultante = document.getElementById("to-print");
@@ -49,7 +64,8 @@ function calculaReceta(calcula) {
     let cantidadPanes = document.getElementById("cantidad").value;
     let errorReceta = document.querySelector("#error-receta");
     let errorCantidad = document.querySelector("#error-cantidad");
-    // Valida que haya una receta seleccionada y que el campo cantidad no esté vacío.
+
+    // Valida que haya una receta seleccionada, si no lo está, lo alerta.
 
     if (idSeleccionado == 0) {
         errorReceta.style.display = "block";
@@ -57,8 +73,8 @@ function calculaReceta(calcula) {
 
     } else {
         errorReceta.style.display = "none";
+        // Valida si el campo de unidades no está vacio. Si lo está, lo alerta.
         if (cantidadPanes !== "") {
-
 
             //Chequea si el toggle de tamaño está marcado, y reduce los valores a un 80%
 
@@ -83,24 +99,20 @@ function calculaReceta(calcula) {
             let descripcion = recetaFiltrada[0].descripcion;
             let conMasaMadre = recetaFiltrada[0].conMasaMadre;
             let alertaMM = ("");
-            let nombreImagen = (nombre).toLowerCase(); // falta la funcion que en el caso que el nombre tenga varias palabras, seleccione solo la primera.
+            let nombreImagen = (nombre).toLowerCase().split(" ", 1); // Genera una variable para el nombre de la imagen a mostrar, usando como fuente el nombre del producto en minusculas. Si el nombre del producto se compone de varias palabras, se selecciona solo la primera.
 
             if (conMasaMadre == true) {
                 alertaMM = (`<span class="aviso">(*)</span>`);
             } else {};
 
+
             //Variables para operar
-
-
             let harinaTotal = Math.ceil((harina * cantidadPanes) * tamano);
             let aguaTotal = Math.ceil((agua * cantidadPanes) * tamano);
             let levaduraTotal = Math.ceil((levadura * cantidadPanes) * tamano);
             let salTotal = Math.ceil((sal * cantidadPanes) * tamano);
             let grasaTotal = Math.ceil((grasa * cantidadPanes) * tamano);
             let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
-
-
-
 
             function porcentajePanadero() {
                 porcentajeHarina = Math.ceil((harinaTotal / harinaTotal) * 100);
@@ -114,7 +126,7 @@ function calculaReceta(calcula) {
             porcentajePanadero();
             let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
 
-            //Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
+            // Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
 
             let recetaHeader = `
         <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
@@ -176,7 +188,7 @@ function calculaReceta(calcula) {
         } else {
             errorCantidad.style.display = "block";
             calcula.preventDefault();
-            }
+        }
     }
 
 
@@ -186,23 +198,26 @@ function calculaReceta(calcula) {
 function descargaReceta() {
     alert("Descargar PDF de la receta");
 }
+
 function modalCoffee() {
     alert("holi");
 }
 
+function anotarReceta() {
+    alert("Receta anotada en la libreta.");
+}
 // Se agrega el listener al boton y se ejecuta funcion al hacer click.
 
 btnCalcularReceta.addEventListener("click", calculaReceta);
 btnDescargarReceta.addEventListener("click", descargaReceta);
 btnCoffee.addEventListener("click", modalCoffee);
+abreLibreta.addEventListener("click", abreCierraLibreta);
+anotarLibreta.addEventListener("click", anotarReceta);
 
 
-function validaentradas() { 
-    if (idSeleccionado == 0) {
-        errorReceta.style.display = "block";
-        calcula.preventDefault();
+function abreCierraLibreta() {
+    libreta.classList.toggle("muestra");
 
-    } else { };
 };
 
-// Notas para mi:faltan las validaciones de formulario. La forma en que se generarán los objetos, quizá se verá en la clase de json, 
+// Notas para mi: faltan las validaciones finales de formulario. La forma en que se generarán los objetos, quizá se verá en la clase de json. 

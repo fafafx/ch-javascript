@@ -14,6 +14,14 @@
 </head>
 
 <body>
+    <!-- Componente libreta -->
+    <div class="libretaRecetas t-center">
+        <div id="abre-libreta" class="abreLibreta">Libreta de recetas</div>
+        <div id="libreta" class="bg-white">
+            <p>Aquí irá lista de recetas agregadas en la libreta, que quedaran en sessionStorage o localStorage segun
+                preferencia.</p>
+        </div>
+    </div>
     <header>
         <nav class="t-center">
             <p><a href="index.html"><img class="logo" src="img/logo.png" alt=""></a></p>
@@ -29,14 +37,11 @@
             <hr class="space-t-10">
             <div class="form-principal">
                 <h3 class="titulos t-center">Selecciona preparación</h3>
-                <form action="">
+                <form id="formulario" action="">
                     <fieldset>
                         <div class="selectReceta">
                             <select id="select-receta" name="preparacion" class="app-form" aria-label="" required>
-                                <option value="0" disabled selected hidden>Seleccione receta</option>
-                                <option value="1">Ciabatta</option>
-                                <option value="2">Hallulla</option>
-                                <option value="3">Marraqueta</option>
+
                             </select>
                             <span id="error-receta" class="error"><i class="fa-solid fa-triangle-exclamation"></i> Debe
                                 seleccionar una receta.</span>
@@ -98,7 +103,8 @@
 
                         </tbody>
                     </table>
-
+                    <div id="anotar" class="agregaLibreta t-center md-20 bottom-tab">Agregar a la libreta
+                        <strong>+</strong></div>
                     <h4 class="descripcion">Descripción</h4>
                     <p class="description justify md-20">La Marraqueta/Pan Frances/Pan Batido, es un tipo de pan,
                         alargado con
