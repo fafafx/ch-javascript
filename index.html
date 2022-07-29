@@ -8,6 +8,7 @@
     <meta name="title" content="">
     <meta name="description" content="">
     <meta name="keywords" content="">
+
     <!-- estilos personales -->
     <link rel="stylesheet" href="css/styles.css">
     <title>Calculadora de masas - Proyecto de JS Coder</title>
@@ -16,27 +17,25 @@
 <body>
     <!-- Componente libreta -->
     <div class="libretaRecetas t-center">
-        <div id="abre-libreta" class="abreLibreta">Libreta de recetas</div>
+        <div id="abre-libreta" class="abreLibreta"><i class="fa-solid fa-rectangle-list"></i> Libreta de recetas <i
+                id="toggleReceta" class=" fa-solid fa-angle-up "></i> </div>
         <div id="libreta" class="bg-white">
-            <p class="justify">Aquí irá lista de recetas agregadas en la libreta, que quedaran en sessionStorage o localStorage segun
-                preferencia.</p><p class="justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis perferendis saepe maxime distinctio magni vitae nostrum iure consequuntur similique laboriosam, provident commodi eius iusto enim temporibus! Consequatur corrupti earum temporibus!</p>
+            <p class="justify">
+                <span>Recetas Guardadas: <span id="contador"></span></span>
+                <span id="borraRecetas">Borrar recetas</span>
+            </p>
         </div>
+    </div>
     </div>
     <header>
         <nav class="t-center">
-            <p><a href="index.html"><img class="logo" src="img/logo.png" alt=""></a></p>
+            <img class="logo" src="img/logo.png" alt="">
         </nav>
     </header>
     <div class="main-container">
-        <main>
-            <h2 class="space-t-30"> Bienvenidos a la calculadora de masas</h2>
-            <hr class="space-t-10 md-10">
-            <p class="justify"> Esta herramienta le ayudará a simplificar el calculo de insumos necesarios
-                para producir distintos tipos de Pan.</p>
-
-            <hr class="space-t-10">
+        <main class="space-t-10">
             <div class="form-principal">
-                <h3 class="titulos t-center">Selecciona preparación</h3>
+                <h3 class="titulos t-center">Elige Receta</h3>
                 <form id="formulario" action="">
                     <fieldset>
                         <div class="selectReceta">
@@ -55,9 +54,29 @@
                                 Ingrese cantidad de unidades a calcular.</span>
                         </div>
                         <div class="options space-t-20">
-                            <p class="t-center">
-                                <label class="toggle" for="gramaje-unidad">
-                                    <input type="checkbox" class="toggle-input" id="gramaje-unidad" />
+                            <span class="space-r-20">
+                                <p class="t-center">
+                                    <!-- Toggle de Tamaño de pan -->
+                                    <label class="toggle " for="gramaje-unidad">
+                                        <input type="checkbox" class="toggle-input" id="gramaje-unidad" />
+                                        <span class="toggle-track">
+                                            <span class="toggle-indicator">
+                                                <span class="checkMark">
+                                                    <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation"
+                                                        aria-hidden="true">
+                                                        <path
+                                                            d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        Pequeño</p>
+                                </label>
+                            </span>
+                            <!-- Toggle de Seleccion de gramos u onzas -->
+                            <span><label class="toggle" for="onzas">
+                                    <input type="checkbox" class="toggle-input" id="onzas" />
                                     <span class="toggle-track">
                                         <span class="toggle-indicator">
                                             <span class="checkMark">
@@ -70,8 +89,8 @@
                                             </span>
                                         </span>
                                     </span>
-                                    Tamaño pequeño</p>
-                            </label>
+                                    Onzas</p>
+                                </label></span>
                         </div>
                     </fieldset>
                 </form>
@@ -83,51 +102,34 @@
                 </div>
             </div>
             <div id="to-print" class="resultado">
-
                 <div class="print-area">
                     <div id="recetaHeader">
                     </div>
-                    <table class="data-table t-center">
-                        <!-- Cabecera de la tabla -->
-                        <thead>
-                            <tr>
-                                <th class="t-center">Ingrediente</th>
-                                <th class="t-center">Cantidad</th>
-                                <th class="t-center">%</th>
-                            </tr>
-                        </thead>
-                        <tbody id="informacion">
-                            <!-- Inicio de tabla y cantidades de ingredientes -->
+                    <div id="recetaPrint">
 
-                            <!-- Cierre de la tabla y suma de cantidades -->
-
-                        </tbody>
-                    </table>
+                    </div>
                     <div id="anotar" class="agregaLibreta t-center md-20 bottom-tab">Agregar a la libreta
                         <strong>+</strong></div>
-                    <h4 class="descripcion">Descripción</h4>
-                    <p class="description justify md-20">La Marraqueta/Pan Frances/Pan Batido, es un tipo de pan,
-                        alargado con
-                        una cortadura en el medio. También se llama así a un pan con incisiones que se hornea como una
-                        sola pieza que luego es fácil de separar. Al igual que muchas palabras que termina en -eta (
-                        bayoneta, bicicleta, etiqueta y servilleta) es de origen francés.</p>
-                    <hr>
-                    <p class="disclaimer t-center md-10 block-light space-t-10">*La levadura (fresca o seca) puede
-                        reemplazarse con prefermentos y/o masa madre. <a href=""><em>Consultar el procedimiento
-                                aqui</a></em></p>
-                    <p class="disclaimer t-center md-10 block-light space-t-10">**Cantidades son referenciales <em>y
-                            pueden depender
-                            de <a href="">temperatura</a>,
-                            <a href="">calidad</a> y <a href="">porcentaje de proteína</a> del harina.</em></p>
+                    <div id="infoAdicional">
+                        <p class="disclaimer t-center md-10 block-light space-t-10">*La levadura (fresca o seca) puede
+                            reemplazarse con prefermentos y/o masa madre. <a href=""><em>Consultar el procedimiento
+                                    aqui</a></em></p>
+                        <p class="disclaimer t-center md-10 block-light space-t-10">**Cantidades son referenciales <em>y
+                                pueden depender
+                                de <a href="">temperatura</a>,
+                                <a href="">calidad</a> y <a href="">porcentaje de proteína</a> del harina.</em></p>
 
-                    <p class="disclaimer t-center md-10 block-light">***Porcentajes son respecto a la <em>cantidad de
-                            harina de la receta (Porcentaje Panadero).
-                            <a href="">Aprender más.</a></em></p>
+                        <p class="disclaimer t-center md-10 block-light">***Porcentajes son respecto a la <em>cantidad
+                                de
+                                harina de la receta (Porcentaje Panadero).
+                                <a href="">Aprender más.</a></em></p>
 
-                    <p class="disclaimer t-center md-10 space-t-20">Receta generada por <em><a href="">Calculadora de
-                                Masas
-                                v1.0</a></em>
-                    </p>
+                        <p class="disclaimer t-center md-10 space-t-20">Receta generada por <em><a href="">Calculadora
+                                    de
+                                    Masas
+                                    v1.0</a></em>
+                        </p>
+                    </div>
                 </div>
                 <div><input id="btnDescargar" type="submit" value="Descargar" class="btn space-t-10"></div>
 

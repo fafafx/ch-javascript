@@ -32,6 +32,7 @@ h5 {
 
 header {
     display: flex;
+    justify-content: center;
     background: $main-color;
     height: 80px;
     position: sticky;
@@ -53,8 +54,24 @@ header {
 }
 
 .options {
+    width: 300;
     display: flex;
+    justify-content: center;
+
 }
+
+.loading{
+    width: 100%;
+    padding-top: 5px;
+    background-color: #fff;
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    
+}
+
+
+#infoAdicional{display:none;}
 
 /*Toggle*/
 
@@ -153,6 +170,7 @@ header {
 
 /* Tables */
 
+
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -200,6 +218,7 @@ header {
     color: $main-color;
     transition: 0.3s;
     cursor: pointer;
+    z-index: 1;
 
 }
 
@@ -249,15 +268,20 @@ header {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     cursor: pointer;
+    display: none;
 
 }
 
+
+
 #libreta {
-    background-color: #fff;
     display: none;
 
     p {
-        padding: 20px;
+        padding: 10px 20px 25px 20px;
+        width: 95%;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 }
 
@@ -299,11 +323,12 @@ main {
 }
 
 .logo {
+    width: auto;
+    height: 35px;
+    cursor: pointer;
 
-    width: 70px;
-    height: 70px;
-    padding: 5px;
 }
+#btnDescargar{display: none;}
 
 .app-form {
     font-family: $main-font;
@@ -398,7 +423,7 @@ main {
 
 footer {
     width: 100%;
-    padding: 100px 0px 80px 0px;
+    padding: 50px 0px 80px 0px;
     background: $main-flat-color;
     justify-content: center;
     position: relative;
@@ -462,7 +487,9 @@ hr {
 nav {
     width: 95%;
     max-width: 1000px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -526,11 +553,12 @@ nav ul a {
 
 .libretaRecetas {
     width: 100%;
+
     margin: 0 auto;
     position: fixed;
     bottom: 0;
     z-index: 4;
-    filter: drop-shadow(0px -11px 40px rgba(0, 0, 0, 0.3));
+    /*   filter: drop-shadow(0px -11px 40px rgba(0, 0, 0, 0.3)); */
 
 
 
@@ -552,17 +580,14 @@ nav ul a {
     position: relative;
     background-color: $main-color;
     color: #fff;
-    width: 250px;
+    width: 100%;
     height: 45px;
-    margin: 0 auto;
     padding: 5px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    line-height: 32px;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+#borraRecetas {
     cursor: pointer;
 }
 
@@ -574,7 +599,7 @@ nav ul a {
 }
 
 .mediumIcon {
-    font-size: 24px;
+    font-size: 20px;
     color: $main-color;
     margin: 0;
     padding: 0
@@ -585,6 +610,42 @@ nav ul a {
 
 }
 
+.listaLibreta {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0px 0px 0px;
+    font-size: 1em;
+}
+
+
+
+.space-r-20 {
+    margin-right: 20px;
+    ;
+}
+
+.rotate{transform: rotate(180deg);}
+
+
+
+.tablaLibreta {
+    width: 100%!important;
+    border:1px solid #b3adad!important;
+    padding:5px!important;
+}
+.tablaLibreta th {
+    border:1px solid #b3adad!important;
+    padding:5px!important;
+}
+.tablaLibreta td {
+    border:1px solid #b3adad!important;
+    text-align:center!important;
+    padding:5px!important;
+}
+
+
+
+
 /* Media Queries */
 
 // Tablets
@@ -593,6 +654,8 @@ nav ul a {
     select {
         background-position-x: 98%;
         background-position-y: 23px;
+        
+    
 
     }
 
@@ -601,7 +664,11 @@ nav ul a {
 
 // Desktop
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+nav{justify-content:flex-start;
+    align-items: center;}
+    
+}
 
 // Big Screens
 @media (min-width: 1200px) {}

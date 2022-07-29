@@ -3,38 +3,160 @@
 document.getElementById('formulario').addEventListener('submit', function (evt) {
     evt.preventDefault();
 })
+// Entrada de datos JSON.
 
-// Acá irá una función que eventualmente traerá datos por externos y creará un array.
+const dataEntrada = `
+ 
+[
+    {
+    "id": 1,
+    "nombre": "Ciabatta",
+    "ingredientes": {
+        "harina": 100,
+        "detalleHarina":"50% harina 000 + 50% harina 0000",
+        "agua": 100,
+        "levadura": 100,
+        "sal": 100,
+        "grasa": 100,
+        "descripcion": "Descripcion de Ciabatta",
+        "conMasaMadre": true
+    }
+      },
+      {
+        "id": 2,
+        "nombre": "Hallulla",
+        "ingredientes": {
+            "harina": 100,
+            "detalleHarina":"50% harina 000 + 50% harina 0000",
+            "agua": 100,
+            "levadura": 100,
+            "sal": 100,
+            "grasa": 100,
+            "descripcion": "Descripcion de Ciabatta",
+            "conMasaMadre": true
+        }
+          },
 
-//Funcion que crea objectos
+     {
+            "id": 3,
+            "nombre": "Marraqueta",
+            "ingredientes": {
+                "harina": 100,
+                "detalleHarina":"50% harina 000 + 50% harina 0000",
+                "agua": 100,
+                "levadura": 100,
+                "sal": 100,
+                "grasa": 100,
+                "descripcion": "Descripcion de Ciabatta",
+                "conMasaMadre": true
+            }
+              },
+     {
+                "id": 4,
+                "nombre": "Bocado de Dama",
+                "ingredientes": {
+                    "harina": 100,
+                    "detalleHarina":"50% harina 000 + 50% harina 0000",
+                    "agua": 100,
+                    "levadura": 100,
+                    "sal": 100,
+                    "grasa": 100,
+                    "descripcion": "Descripcion de Ciabatta",
+                    "conMasaMadre": true
+                }
+                  },
+        {
+                    "id": 5,
+                    "nombre": "Baguette",
+                    "ingredientes": {
+                        "harina": 100,
+                        "detalleHarina":"50% harina 000 + 50% harina 0000",
+                        "agua": 100,
+                        "levadura": 100,
+                        "sal": 100,
+                        "grasa": 100,
+                        "descripcion": "Descripcion de Ciabatta",
+                        "conMasaMadre": true
+                    }
+                      },
+         {
+                        "id": 6,
+                        "nombre": "Brioche",
+                        "ingredientes": {
+                            "harina": 100,
+                            "detalleHarina":"50% harina 000 + 50% harina 0000",
+                            "agua": 100,
+                            "levadura": 100,
+                            "sal": 100,
+                            "grasa": 100,
+                            "descripcion": "Descripcion de Ciabatta",
+                            "conMasaMadre": true
+                        }
+                          },
+        {
+                            "id": 7,
+                            "nombre": "Croissant",
+                            "ingredientes": {
+                                "harina": 100,
+                                "detalleHarina":"50% harina 000 + 50% harina 0000",
+                                "agua": 100,
+                                "levadura": 100,
+                                "sal": 100,
+                                "grasa": 100,
+                                "descripcion": "Descripcion de Ciabatta",
+                                "conMasaMadre": true
+                            }
+                              },
+        {
+                                "id": 8,
+                                "nombre": "Hogaza Rústica",
+                                "ingredientes": {
+                                    "harina": 100,
+                                    "detalleHarina":"50% harina 000 + 50% harina 0000",
+                                    "agua": 100,
+                                    "levadura": 100,
+                                    "sal": 100,
+                                    "grasa": 100,
+                                    "descripcion": "Descripcion de Ciabatta",
+                                    "conMasaMadre": true
+                                }
+                                  },
+            {
+                                    "id": 9,
+                                    "nombre": "Pan Frica",
+                                    "ingredientes": {
+                                        "harina": 100,
+                                        "detalleHarina":"50% harina 000 + 50% harina 0000",
+                                        "agua": 100,
+                                        "levadura": 100,
+                                        "sal": 100,
+                                        "grasa": 100,
+                                        "descripcion": "Descripcion de Ciabatta",
+                                        "conMasaMadre": true
+                                    }
+                                      },
+            {
+                                        "id": 10,
+                                        "nombre": "Pan Amasado",
+                                        "ingredientes": {
+                                            "harina": 100,
+                                            "detalleHarina":"50% harina 000 + 50% harina 0000",
+                                            "agua": 100,
+                                            "levadura": 100,
+                                            "sal": 100,
+                                            "grasa": 100,
+                                            "descripcion": "Descripcion de Ciabatta",
+                                            "conMasaMadre": true
+                                        }
+                                          }
+    
+]`
 
-function Pan(id, nombre, harina, agua, levadura, sal, grasa, descripcion, conMasaMadre) {
-    this.id = id;
-    this.nombre = nombre;
-    this.harina = harina;
-    this.agua = agua;
-    this.levadura = levadura;
-    this.sal = sal;
-    this.grasa = grasa;
-    this.descripcion = descripcion;
-    this.conMasaMadre = conMasaMadre;
-}
 
-//se crean los objetos, se reemplazará con la generacion de esta info desde JSON.
-
-const pan1 = new Pan(1, "Ciabatta", 100, 100, 100, 100, 100, "Descripcion de Ciabatta", true);
-const pan2 = new Pan(2, "Hallulla", 50, 30, 1, 2, 20, "Descripcion de Hallulla", false);
-const pan3 = new Pan(3, "Marraqueta", 50, 30, 1, 2, 20, "Descripcion de Marraqueta", false);
-const pan4 = new Pan(4, "Bocado de Dama", 50, 30, 1, 2, 20, "Bocado de Dama", false);
-const pan5 = new Pan(5, "Baguette", 50, 30, 1, 2, 20, "Descripcion de Bocado de dama", true);
-const pan6 = new Pan(6, "Brioche", 50, 30, 1, 2, 20, "Descripcion de Brioche", false);
-const pan7 = new Pan(7, "Croissant", 50, 30, 1, 2, 20, "Descripcion de Croissant", true);
-const pan8 = new Pan(8, "Hogaza", 50, 30, 1, 2, 20, "Descripcion de Hogaza", true);
-const pan9 = new Pan(9, "Frica", 50, 30, 1, 2, 20, "Descripcion de Frica", false);
-const pan10 = new Pan(10, "Amasado", 50, 30, 1, 2, 20, "Descripcion de Amasado", false);
-
-//se crea el array con todos los objetos
-const totalRecetas = [pan1, pan2, pan3, pan4, pan5, pan6, pan7, pan8, pan9, pan10];
+console.log(typeof dataEntrada);
+// Se parsean los datos JSON.
+const totalRecetas = JSON.parse(dataEntrada);
+console.log(typeof totalRecetas);
 
 // Se genera el select usando map desde el array totalRecetas. falta generar ese array desde JSON. Con el tiempo se implementará un buscador de texto que se autocomplete tipo google. 
 
@@ -50,20 +172,32 @@ const btnCoffee = document.getElementById("coffee");
 const abreLibreta = document.getElementById("abre-libreta");
 const libreta = document.querySelector("#libreta");
 const anotarLibreta = document.querySelector("#anotar");
+const borrarRecetas = document.querySelector("#borraRecetas");
+let enfocar = document.querySelector(".canvas");
+let infoExtra = document.querySelector("#infoAdicional");
+let btnDescarga = document.querySelector("#btnDescargar");
+
+
 
 // Funcion Principal
 
 function calculaReceta(calcula) {
     let contenidoResultante = document.getElementById("to-print");
     let idSeleccionado = parseInt(document.getElementById("select-receta").value);
-    let contenido = document.querySelector("#informacion");
+    let contenido = document.querySelector("#recetaPrint");
     let recetaEncabezado = document.querySelector("#recetaHeader");
     let cambiaTamano = document.getElementById("gramaje-unidad").checked;
+    let checkOnzas = document.getElementById("onzas").checked;
     let tamano = 1;
     let tamanoPieza = "normal";
     let cantidadPanes = document.getElementById("cantidad").value;
     let errorReceta = document.querySelector("#error-receta");
     let errorCantidad = document.querySelector("#error-cantidad");
+    idItemLibreta = Math.round(Math.random() * 3577874);
+    infoExtra.classList.remove("muestra");
+    btnDescarga.classList.remove("muestra");
+
+
 
     // Valida que haya una receta seleccionada, si no lo está, lo alerta.
 
@@ -85,19 +219,34 @@ function calculaReceta(calcula) {
                 console.log("Se mantiene la proporcion original");
             };
 
-            // Filtra array por id
+            //Chequea si es onza o grs.
+            let unidadMedida = 1;
+            let medidaNombre = "grs";
+            if (checkOnzas) {
+                unidadMedida = 0.035274;
+                medidaNombre = "oz";
 
-            let recetaFiltrada = totalRecetas.filter(receta => receta.id == idSeleccionado);
+                console.log("Se cambia la medida a onzas");
+            } else {
+                console.log("Se mantiene la medida en gramos");
+            }
 
-            // Crea variabkes desde ese array
-            let nombre = recetaFiltrada[0].nombre;
-            let harina = recetaFiltrada[0].harina;
-            let agua = recetaFiltrada[0].agua;
-            let levadura = recetaFiltrada[0].levadura;
-            let sal = recetaFiltrada[0].sal;
-            let grasa = recetaFiltrada[0].grasa;
-            let descripcion = recetaFiltrada[0].descripcion;
-            let conMasaMadre = recetaFiltrada[0].conMasaMadre;
+
+
+            // Filtra array por id usando find.
+
+            let recetaFiltrada = totalRecetas.find(receta => receta.id == idSeleccionado);
+            console.log(recetaFiltrada);
+
+            // Crea variables desde ese array
+            let nombre = recetaFiltrada.nombre;
+            let harina = recetaFiltrada.ingredientes.harina;
+            let agua = recetaFiltrada.ingredientes.agua;
+            let levadura = recetaFiltrada.ingredientes.levadura;
+            let sal = recetaFiltrada.ingredientes.sal;
+            let grasa = recetaFiltrada.ingredientes.grasa;
+            let descripcion = recetaFiltrada.ingredientes.descripcion;
+            let conMasaMadre = recetaFiltrada.ingredientes.conMasaMadre;
             let alertaMM = ("");
             let nombreImagen = (nombre).toLowerCase().split(" ", 1); // Genera una variable para el nombre de la imagen a mostrar, usando como fuente el nombre del producto en minusculas. Si el nombre del producto se compone de varias palabras, se selecciona solo la primera.
 
@@ -107,11 +256,11 @@ function calculaReceta(calcula) {
 
 
             //Variables para operar
-            let harinaTotal = Math.ceil((harina * cantidadPanes) * tamano);
-            let aguaTotal = Math.ceil((agua * cantidadPanes) * tamano);
-            let levaduraTotal = Math.ceil((levadura * cantidadPanes) * tamano);
-            let salTotal = Math.ceil((sal * cantidadPanes) * tamano);
-            let grasaTotal = Math.ceil((grasa * cantidadPanes) * tamano);
+            let harinaTotal = Math.ceil(((harina * cantidadPanes) * tamano)) * unidadMedida;
+            let aguaTotal = Math.ceil(((agua * cantidadPanes) * tamano)) * unidadMedida;
+            let levaduraTotal = Math.ceil(((levadura * cantidadPanes) * tamano)) * unidadMedida;
+            let salTotal = Math.ceil(((sal * cantidadPanes) * tamano)) * unidadMedida;
+            let grasaTotal = Math.ceil(((grasa * cantidadPanes) * tamano)) * unidadMedida;
             let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
 
             function porcentajePanadero() {
@@ -122,8 +271,8 @@ function calculaReceta(calcula) {
                 porcentajeGrasa = Math.ceil((grasaTotal / harinaTotal) * 100);
 
             }
-
             porcentajePanadero();
+
             let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
 
             // Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
@@ -132,80 +281,147 @@ function calculaReceta(calcula) {
         <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
         <h3 class="titulos t-center">${nombre}</h3>
         <hr>
-        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${gramajeUnidad} gramos aproximadamente (Tamaño ${tamanoPieza}).
+        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${gramajeUnidad} ${medidaNombre} aproximadamente (Tamaño ${tamanoPieza}).
         </em></p>
 
 `;
 
+            let loading = `
+                   <div id="cargando" class="loading"><img class="canvas" src="img/loadGif.webp" alt="cargando..."></div>
 
+`;
 
-            let recetaData = `
+            recetaData = `
+        <table class="data-table t-center">
+        <!-- Cabecera de la tabla -->
+        <thead>
+        <tr>
+        <th class="t-center">Ingrediente</th>
+        <th class="t-center">Cantidad</th>
+        <th class="t-center">%</th>
+        </tr>
+        </thead>
+        <tbody id="informacion">
+            
         <tr>
         <td>Harina</td>
-        <td>${harinaTotal} grs.</td>
+        <td>${harinaTotal.toFixed(0)} ${medidaNombre}.</td>
         <td>${porcentajeHarina}%</td>
         </tr>
 
         <tr>
         <td>Agua</td>
-        <td>${aguaTotal} grs.</td>
+        <td>${aguaTotal.toFixed(0)} ${medidaNombre}.</td>
         <td>${porcentajeAgua}%</td>
         </tr>
 
         <tr>
         <td>Levadura ${alertaMM}</td>
-        <td>${levaduraTotal} grs.</td>
+        <td>${levaduraTotal.toFixed(0)} ${medidaNombre}.</td>
         <td>${porcentajeLevadura}%</td>
         </tr>
 
         <tr>
         <td>Sal</td>
-        <td>${salTotal} grs.</td>
+        <td>${salTotal.toFixed(0)} ${medidaNombre}.</td>
     <td>${porcentajeSal}%</td>
     </tr>
 
     <tr>
     <td>Materia grasa</td>
-    <td>${grasaTotal} grs.</td>
+    <td>${grasaTotal.toFixed(0)} ${medidaNombre}.</td>
     <td>${porcentajeGrasa}%</td>
     </tr>
 
     <tr>
     <td></td>
     <td>Total masa</td>
-    <td>${masaTotal} grs.</td>
+    <td>${masaTotal.toFixed(0)} ${medidaNombre}.</td>
     </tr>
+    </tbody>
+    </table>
+
+    
+    
+                        
         `;
 
-            //Se rellenan los bloques HTML
 
+            //Se rellenan los bloques HTML
+            function draw() {
+                contenido.innerHTML = "";
+                recetaEncabezado.innerHTML = "";
+                recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
+                contenido.insertAdjacentHTML('afterbegin', recetaData);
+                anotarLibreta.classList.add("muestra");
+                infoExtra.classList.add("muestra");
+                btnDescarga.classList.add("muestra");
+
+
+
+            }
+
+
+
+            anotarLibreta.classList.remove("muestra");
             recetaEncabezado.innerHTML = "";
-            recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
             contenido.innerHTML = "";
-            contenido.insertAdjacentHTML('afterbegin', recetaData);
+            contenido.insertAdjacentHTML('afterbegin', loading);
+
             errorCantidad.style.display = "none";
             contenidoResultante.style.display = "block";
+            setTimeout(draw, 2000);
+
         } else {
             errorCantidad.style.display = "block";
             calcula.preventDefault();
         }
+
     }
 
 
 
 };
 
+
+// Funciones de la libreta
+
 function descargaReceta() {
     alert("Descargar PDF de la receta");
 }
 
 function modalCoffee() {
-    alert("holi");
+    alert("Se abre link");
+
 }
 
+let contadorRecetas = document.querySelector("#contador");
+
 function anotarReceta() {
-    alert("Receta anotada en la libreta.");
+    let idContenido = idItemLibreta + "hola";
+    let contenido = recetaData;
+    sessionStorage.setItem(idContenido, contenido);
+    cuentaRecetas();
+
 }
+
+function cuentaRecetas() {
+    let contadorStorage = sessionStorage.length;
+    contadorRecetas.innerHTML = "";
+    contadorRecetas.insertAdjacentHTML('afterbegin', contadorStorage);
+};
+
+cuentaRecetas();
+
+function borraReceta() {
+    sessionStorage.clear();
+    cuentaRecetas();
+};
+
+// notificaciones
+
+
+
 // Se agrega el listener al boton y se ejecuta funcion al hacer click.
 
 btnCalcularReceta.addEventListener("click", calculaReceta);
@@ -213,11 +429,13 @@ btnDescargarReceta.addEventListener("click", descargaReceta);
 btnCoffee.addEventListener("click", modalCoffee);
 abreLibreta.addEventListener("click", abreCierraLibreta);
 anotarLibreta.addEventListener("click", anotarReceta);
+borrarRecetas.addEventListener("click", borraReceta);
 
 
 function abreCierraLibreta() {
+    let botonAbreCierra = document.querySelector("#toggleReceta");
     libreta.classList.toggle("muestra");
+    botonAbreCierra.classList.toggle("rotate");
+
 
 };
-
-// Notas para mi: faltan las validaciones finales de formulario. La forma en que se generarán los objetos, quizá se verá en la clase de json. 
