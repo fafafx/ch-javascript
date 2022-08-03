@@ -173,7 +173,6 @@ const abreLibreta = document.getElementById("abre-libreta");
 const libreta = document.querySelector("#libreta");
 const anotarLibreta = document.querySelector("#anotar");
 const borrarRecetas = document.querySelector("#borraRecetas");
-let enfocar = document.querySelector(".canvas");
 let infoExtra = document.querySelector("#infoAdicional");
 let btnDescarga = document.querySelector("#btnDescargar");
 
@@ -182,22 +181,20 @@ let btnDescarga = document.querySelector("#btnDescargar");
 // Funcion Principal
 
 function calculaReceta(calcula) {
-    let contenidoResultante = document.getElementById("to-print");
-    let idSeleccionado = parseInt(document.getElementById("select-receta").value);
-    let contenido = document.querySelector("#recetaPrint");
-    let recetaEncabezado = document.querySelector("#recetaHeader");
-    let cambiaTamano = document.getElementById("gramaje-unidad").checked;
-    let checkOnzas = document.getElementById("onzas").checked;
+    const contenidoResultante = document.getElementById("to-print");
+    const idSeleccionado = parseInt(document.getElementById("select-receta").value);
+    const contenido = document.querySelector("#recetaPrint");
+    const recetaEncabezado = document.querySelector("#recetaHeader");
+    const cambiaTamano = document.getElementById("gramaje-unidad").checked;
+    const checkOnzas = document.getElementById("onzas").checked;
     let tamano = 1;
     let tamanoPieza = "normal";
-    let cantidadPanes = document.getElementById("cantidad").value;
-    let errorReceta = document.querySelector("#error-receta");
-    let errorCantidad = document.querySelector("#error-cantidad");
+    const cantidadPanes = document.getElementById("cantidad").value;
+    const errorReceta = document.querySelector("#error-receta");
+    const errorCantidad = document.querySelector("#error-cantidad");
     idItemLibreta = Math.round(Math.random() * 3577874);
     infoExtra.classList.remove("muestra");
     btnDescarga.classList.remove("muestra");
-
-
 
     // Valida que haya una receta seleccionada, si no lo está, lo alerta.
 
@@ -225,7 +222,6 @@ function calculaReceta(calcula) {
             if (checkOnzas) {
                 unidadMedida = 0.035274;
                 medidaNombre = "oz";
-
                 console.log("Se cambia la medida a onzas");
             } else {
                 console.log("Se mantiene la medida en gramos");
@@ -237,42 +233,46 @@ function calculaReceta(calcula) {
 
             let recetaFiltrada = totalRecetas.find(receta => receta.id == idSeleccionado);
             console.log(recetaFiltrada);
+            let {
+                nombre,
+                ingredientes: {
+                    harina,
+                    agua,
+                    levadura,
+                    sal,
+                    grasa,
+                    descripcion,
+                    conMasaMadre
+                }
+            } = recetaFiltrada;
 
-            // Crea variables desde ese array
-            let nombre = recetaFiltrada.nombre;
-            let harina = recetaFiltrada.ingredientes.harina;
-            let agua = recetaFiltrada.ingredientes.agua;
-            let levadura = recetaFiltrada.ingredientes.levadura;
-            let sal = recetaFiltrada.ingredientes.sal;
-            let grasa = recetaFiltrada.ingredientes.grasa;
-            let descripcion = recetaFiltrada.ingredientes.descripcion;
-            let conMasaMadre = recetaFiltrada.ingredientes.conMasaMadre;
+             // Genera una variable para el nombre de la imagen a mostrar, usando como fuente el nombre del producto en minusculas. Si el nombre del producto se compone de varias palabras, se selecciona solo la primera.
             let alertaMM = ("");
-            let nombreImagen = (nombre).toLowerCase().split(" ", 1); // Genera una variable para el nombre de la imagen a mostrar, usando como fuente el nombre del producto en minusculas. Si el nombre del producto se compone de varias palabras, se selecciona solo la primera.
+            let nombreImagen = (nombre).toLowerCase().split(" ", 1);
 
-            if (conMasaMadre == true) {
-                alertaMM = (`<span class="aviso">(*)</span>`);
-            } else {};
-
+            //Verifica si el la receta puede usar masa madre y lo alerta.
+            conMasaMadre == true ? alertaMM = (`<span class="aviso">(*)</span>`) : alertaMM = ("");
 
             //Variables para operar
-            let harinaTotal = Math.ceil(((harina * cantidadPanes) * tamano)) * unidadMedida;
-            let aguaTotal = Math.ceil(((agua * cantidadPanes) * tamano)) * unidadMedida;
-            let levaduraTotal = Math.ceil(((levadura * cantidadPanes) * tamano)) * unidadMedida;
-            let salTotal = Math.ceil(((sal * cantidadPanes) * tamano)) * unidadMedida;
-            let grasaTotal = Math.ceil(((grasa * cantidadPanes) * tamano)) * unidadMedida;
-            let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
-
-            function porcentajePanadero() {
-                porcentajeHarina = Math.ceil((harinaTotal / harinaTotal) * 100);
-                porcentajeAgua = Math.ceil((aguaTotal / harinaTotal) * 100);
-                porcentajeLevadura = Math.ceil((levaduraTotal / harinaTotal) * 100);
-                porcentajeSal = Math.ceil((salTotal / harinaTotal) * 100);
-                porcentajeGrasa = Math.ceil((grasaTotal / harinaTotal) * 100);
-
+            function preparaCantidades(a) {
+                return Math.ceil(((a * cantidadPanes) * tamano)) * unidadMedida;
             }
-            porcentajePanadero();
 
+            function porcentajePanadero(a, b) {
+                return Math.ceil((a / b) * 100);
+            }
+
+            let harinaTotal = preparaCantidades(harina);
+            let aguaTotal = preparaCantidades(agua);
+            let levaduraTotal = preparaCantidades(levadura);
+            let salTotal = preparaCantidades(sal);
+            let grasaTotal = preparaCantidades(grasa);
+            let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
+            let porcentajeHarina = porcentajePanadero(harinaTotal, harinaTotal);
+            let porcentajeAgua = porcentajePanadero(aguaTotal, harinaTotal);
+            let porcentajeLevadura = porcentajePanadero(levaduraTotal, harinaTotal);
+            let porcentajeSal = porcentajePanadero(salTotal, harinaTotal);
+            let porcentajeGrasa = porcentajePanadero(grasaTotal, harinaTotal);
             let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
 
             // Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
@@ -340,14 +340,10 @@ function calculaReceta(calcula) {
     </tr>
     </tbody>
     </table>
-
-    
-    
-                        
+               
         `;
 
-
-            //Se rellenan los bloques HTML
+        //Se rellenan los bloques HTML
             function draw() {
                 contenido.innerHTML = "";
                 recetaEncabezado.innerHTML = "";
@@ -356,9 +352,6 @@ function calculaReceta(calcula) {
                 anotarLibreta.classList.add("muestra");
                 infoExtra.classList.add("muestra");
                 btnDescarga.classList.add("muestra");
-
-
-
             }
 
 
@@ -367,7 +360,6 @@ function calculaReceta(calcula) {
             recetaEncabezado.innerHTML = "";
             contenido.innerHTML = "";
             contenido.insertAdjacentHTML('afterbegin', loading);
-
             errorCantidad.style.display = "none";
             contenidoResultante.style.display = "block";
             setTimeout(draw, 2000);
@@ -376,11 +368,7 @@ function calculaReceta(calcula) {
             errorCantidad.style.display = "block";
             calcula.preventDefault();
         }
-
     }
-
-
-
 };
 
 
@@ -397,30 +385,33 @@ function modalCoffee() {
 
 let contadorRecetas = document.querySelector("#contador");
 
-function anotarReceta() {
-    let idContenido = idItemLibreta + "hola";
-    let contenido = recetaData;
-    sessionStorage.setItem(idContenido, contenido);
-    cuentaRecetas();
-
-}
-
 function cuentaRecetas() {
-    let contadorStorage = sessionStorage.length;
+    let contadorStorage = localStorage.length;
     contadorRecetas.innerHTML = "";
     contadorRecetas.insertAdjacentHTML('afterbegin', contadorStorage);
 };
 
+function anotarReceta() {
+    let idContenido = idItemLibreta;
+    let contenido = recetaData;
+    localStorage.setItem(idContenido, contenido);
+    cuentaRecetas();
+}
+
 cuentaRecetas();
 
 function borraReceta() {
-    sessionStorage.clear();
+    localStorage.clear();
     cuentaRecetas();
 };
 
-// notificaciones
+function abreCierraLibreta() {
+    let botonAbreCierra = document.querySelector("#toggleReceta");
+    libreta.classList.toggle("muestra");
+    botonAbreCierra.classList.toggle("rotate");
 
 
+};
 
 // Se agrega el listener al boton y se ejecuta funcion al hacer click.
 
@@ -432,10 +423,3 @@ anotarLibreta.addEventListener("click", anotarReceta);
 borrarRecetas.addEventListener("click", borraReceta);
 
 
-function abreCierraLibreta() {
-    let botonAbreCierra = document.querySelector("#toggleReceta");
-    libreta.classList.toggle("muestra");
-    botonAbreCierra.classList.toggle("rotate");
-
-
-};
