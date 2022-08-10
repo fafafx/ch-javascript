@@ -391,19 +391,76 @@ function cuentaRecetas() {
     contadorRecetas.insertAdjacentHTML('afterbegin', contadorStorage);
 };
 
-function anotarReceta() {
+/* function anotarReceta() {
     let idContenido = idItemLibreta;
     let contenido = recetaData;
     localStorage.setItem(idContenido, contenido);
     cuentaRecetas();
+} */
+
+function Nota(idNota, dataNota, fechaNota) {
+    this.idNota = idNota;
+    this.fechaNota = fechaNota;
+    this.dataNota = dataNota;
+}
+
+let notas = [];
+function anotarReceta() {
+    let idContenido = idItemLibreta;
+    let contenido = recetaData;
+    let fecha = new Date();
+    let notaEscribir = new Nota(idContenido,contenido,fecha);
+    localStorage.setItem(idContenido, JSON.stringify(notaEscribir));
+    cuentaRecetas();
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        text: "Receta guardada correctamente.",
+        duration: 3000
+        
+        }).showToast();
+   
 }
 
 cuentaRecetas();
 
-function borraReceta() {
+borrarRecetas.addEventListener('click', () => {
+
+    Swal.fire(
+        {
+            title: 'Vaciar Libreta',
+            text: '¿Realmente desea eliminar todas las recetas guardadas?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, borrarlas.',
+            cancelButtonText: 'No, dejarlas ahí.'
+
+        }
+    ).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.clear();
+    cuentaRecetas();
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        text: "Recetas eliminadas correctamente.",
+        duration: 2000
+    }).showToast();
+        }
+    })
+
+})
+
+/* function borraReceta() {
     localStorage.clear();
     cuentaRecetas();
-};
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        text: "Receta eliminada correctamente de la libreta.",
+        duration: 2000
+    }).showToast();
+}; */
 
 function abreCierraLibreta() {
     let botonAbreCierra = document.querySelector("#toggleReceta");
@@ -420,6 +477,6 @@ btnDescargarReceta.addEventListener("click", descargaReceta);
 btnCoffee.addEventListener("click", modalCoffee);
 abreLibreta.addEventListener("click", abreCierraLibreta);
 anotarLibreta.addEventListener("click", anotarReceta);
-borrarRecetas.addEventListener("click", borraReceta);
+/* borrarRecetas.addEventListener("click", borraReceta); */
 
 
