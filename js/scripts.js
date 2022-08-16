@@ -12,7 +12,7 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 // Cuando lo uso, la data llega, revisé en el apartado network / fetch del modo desarrollador, sin embargo me da error de sintaxis y no logro dar con el error.
  
 const traerDatos = async () => {
-    const response = await fetch('/data/info.json', {
+    const response = await fetch('./data/info.json', {
         'mode': 'no-cors',
         'headers': {
             'Access-Control-Allow-Origin': '*',
