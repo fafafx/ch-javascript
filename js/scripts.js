@@ -6,7 +6,7 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 
 // Función que trae la data JSON // ERROR si uso URL remoto en el fetch cuando uso live server. 
 const traerDatos = async () => {
-    const response = await fetch('https://api.jsonserve.com/p2eaJm', {
+    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json', {
         'mode': 'no-cors',
         'headers': {
             'Access-Control-Allow-Origin': '*',
