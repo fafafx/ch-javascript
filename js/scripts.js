@@ -6,7 +6,13 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 
 // Función que trae la data JSON.
 const traerDatos = async () => {
-    const response = await fetch('https://api.jsonserve.com/p2eaJm');
+    const response = await fetch('https://api.jsonserve.com/p2eaJm', {
+        'mode': 'no-cors',
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+        }
+      }
+      );
     const data = await response.json();
     totalRecetas = data;
     return data;
