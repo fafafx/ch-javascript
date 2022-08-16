@@ -6,20 +6,20 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 
 //Comentarios para Nico.
 
-// Función que trae la data JSON // ERROR si uso URL remoto en el fetch cuando uso live server. para que funcione en local el URL del fetch debe ser ../data/info.json
+// Función que trae la data JSON // ERROR si uso URL remoto en el fetch cuando uso live server. para que funcione en local el URL del fetch debe ser ../data/info.json, en github pages: https://fafafx.github.io/ch-javascript/data/info.json
 
 // Tengo adicionalmente hosteado el JSON en: https://api.jsonserve.com/p2eaJm
 // Cuando lo uso, la data llega, revisé en el apartado network / fetch del modo desarrollador, sin embargo me da error de sintaxis y no logro dar con el error.
-
+ 
 const traerDatos = async () => {
-    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json', {
+    const response = await fetch('/data/info.json', {
         'mode': 'no-cors',
         'headers': {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': true
         }
     });
-    const data = await response.json();
+    const data = await response.json();   
     totalRecetas = data;
 };
 
