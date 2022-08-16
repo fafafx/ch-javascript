@@ -5,13 +5,7 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 })
  
 const traerDatos = async () => {
-    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json', {
-        'mode': 'no-cors',
-        'headers': {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true
-        }
-    });
+    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json');
     const data = await response.json();   
     totalRecetas = data;
 };
