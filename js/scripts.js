@@ -9,7 +9,7 @@ const traerDatos = async () => {
     const response = await fetch('https://api.jsonserve.com/p2eaJm', {
         'mode': 'no-cors',
         'headers': {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '*'
         }
       }
       );
