@@ -301,7 +301,7 @@ select {
     background-image: url("../img/arrow.png");
     background-repeat: no-repeat;
     background-position-x: 95%;
-    background-position-y: 18px;
+    background-position-y: 10px;
     cursor: pointer;
 
 }
@@ -657,9 +657,6 @@ nav ul a {
     padding: 5px !important;
 }
 
-
-
-
 /* Media Queries */
 
 // Tablets
@@ -667,7 +664,7 @@ nav ul a {
 
     select {
         background-position-x: 98%;
-        background-position-y: 23px;
+        background-position-y: 18px;
 
 
 

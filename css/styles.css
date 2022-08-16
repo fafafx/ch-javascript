@@ -260,13 +260,15 @@ select {
   background-image: url("../img/arrow.png");
   background-repeat: no-repeat;
   background-position-x: 95%;
-  background-position-y: 18px;
+  background-position-y: 10px;
   cursor: pointer;
 }
 
 a {
   font-weight: 500;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 ahover {
   text-decoration: underline;
@@ -575,7 +577,7 @@ nav ul a {
 @media (min-width: 768px) {
   select {
     background-position-x: 98%;
-    background-position-y: 23px;
+    background-position-y: 18px;
   }
 }
 @media (min-width: 992px) {
