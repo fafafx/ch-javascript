@@ -10,12 +10,11 @@ const traerDatos = async () => {
         'mode': 'no-cors',
         'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials' : true 
         }
       }
       );
     const data = await response.json();
-    totalRecetas = data;
+    totalRecetas = JSON.parse(data);
     return data;
 };
             
