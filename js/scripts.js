@@ -6,7 +6,7 @@ document.getElementById('formulario').addEventListener('submit', function (evt) 
 
 // Función que trae la data JSON.
 const traerDatos = async () => {
-    const response = await fetch('../data/info.json', {
+    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json', {
         'mode': 'no-cors',
         'headers': {
             'Access-Control-Allow-Origin': '*',
