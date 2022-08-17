@@ -84,9 +84,6 @@ function calculaReceta(calcula) {
             } else {
                 console.log("Se mantiene la medida en gramos");
             }
-
-
-
             // Filtra array por id usando find.
 
             let recetaFiltrada = totalRecetas.find(receta => receta.id == idSeleccionado);
