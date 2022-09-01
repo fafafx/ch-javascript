@@ -3,13 +3,14 @@
 document.getElementById('formulario').addEventListener('submit', function (evt) {
     evt.preventDefault();
 });
-
-/* sessionStorage.clear(); */
+//Fuerza el vaciado del session storage, esto debido a que quiero que esté vacía la libreta al recargar la pagina.
+sessionStorage.clear();
 const laLibreta = document.getElementById("libretaCompleta");
 const avisoVacio = document.getElementById("recetarioVacio");
 const notif = document.getElementById("notificacion");
 const contador = document.getElementById("counter");
 
+// cuenta las recetas del LS, oculta y muestra elementos dependiendo del valor.
 function cuentaRecetas() {
 
     if (sessionStorage.length > 0) {
@@ -24,7 +25,7 @@ function cuentaRecetas() {
 
     };
 }
-
+//trae la data de un JSON.
 const traerDatos = async () => {
     const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json');
     const data = await response.json();
@@ -256,18 +257,17 @@ function calculaReceta(calcula) {
 // Funciones de la libreta
 
 function descargaReceta() {
-    alert("Descargar PDF de la receta");
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        text: "Se está procesando la descarga de la receta en PDF.",
+        duration: 3000
+
+    }).showToast();
 }
 
-function modalCoffee() {
-    alert("Se abre link");
 
-}
-
-
-
-
-
+// Funciones de la libreta
 
 function Nota(idNota, dataNota, fechaNota) {
     this.idNota = idNota;
@@ -384,7 +384,6 @@ function abrirLibreta() {
 
 btnCalcularReceta.addEventListener("click", calculaReceta);
 btnDescargarReceta.addEventListener("click", descargaReceta);
-btnCoffee.addEventListener("click", modalCoffee);
 anotarLibreta.addEventListener("click", anotarReceta);
 abreLibreta.addEventListener("click", abrirLibreta);
 cierraLibreta.addEventListener("click", cerrarLibreta);

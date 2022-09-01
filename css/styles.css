@@ -29,7 +29,7 @@ h5 {
 header {
   display: flex;
   justify-content: center;
-  background: #645AB6;
+  background: blueviolet;
   height: 80px;
   position: sticky;
   top: 0;
@@ -627,9 +627,9 @@ nav ul a {
 .openCloseBtn {
   width: 20px;
   height: 20px;
-  position: fixed;
+  position: absolute;
   bottom: 30px;
-  left: 30px;
+  right: 30px;
   cursor: pointer;
   z-index: 99;
 }
