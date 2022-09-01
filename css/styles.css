@@ -600,6 +600,7 @@ nav ul a {
   -webkit-box-shadow: 3px -1px 13px -3px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 3px -1px 13px -3px rgba(0, 0, 0, 0.15);
   border-right: 1px solid #dfdbff;
+  display: none;
 }
 
 .mMovil {
