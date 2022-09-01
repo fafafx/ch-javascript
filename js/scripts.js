@@ -311,8 +311,6 @@ function anotarReceta() {
 
 }
 
-
-
 borrarRecetas.addEventListener('click', () => {
 
     Swal.fire({
@@ -353,6 +351,7 @@ function borraReceta(idABorrar) {
     }).then((result) => {
         if (result.isConfirmed) {
             sessionStorage.removeItem(identificador);
+            document.getElementById(identificador).remove();
             cuentaRecetas();
             Toastify({
                 gravity: "bottom", // `top` or `bottom`
