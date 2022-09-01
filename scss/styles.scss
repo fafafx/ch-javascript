@@ -724,6 +724,7 @@ nav ul a {
     cursor: pointer;
     z-index: 99;
 }
+
 .openBtn {
     width: 20px;
     height: 20px;
@@ -736,6 +737,47 @@ nav ul a {
 
 #libretaCompleta {
     display: none;
+}
+
+
+// Estilos de boton libreta
+
+.openClose {
+    width: 90px;
+    height: 90px;
+    background-color: blueviolet;
+    background-image: url(../img/openBg.png);
+    background-position: center center;
+    display: flex;
+    justify-content: flex-end;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-right-radius: 5px;
+    padding: 10px;
+    position: fixed;
+    bottom: 0px;
+    z-index: 10;
+    cursor: pointer;
+
+
+}
+
+.notificacion {
+    top:0;
+    right:0;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 5px;
+ 
+
+}
+
+.counter {
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
 }
 
 /* Media Queries */

@@ -3,18 +3,24 @@
 document.getElementById('formulario').addEventListener('submit', function (evt) {
     evt.preventDefault();
 });
-sessionStorage.clear();
+
+/* sessionStorage.clear(); */
 const laLibreta = document.getElementById("libretaCompleta");
 const avisoVacio = document.getElementById("recetarioVacio");
+const notif = document.getElementById("notificacion");
+const contador = document.getElementById("counter");
 
 function cuentaRecetas() {
 
     if (sessionStorage.length > 0) {
+        contador.innerHTML = sessionStorage.length;
         laLibreta.style.display = "block";
         avisoVacio.style.display = "none";
+        notif.style.display = "block";
     } else {
         laLibreta.style.display = "none";
         avisoVacio.style.display = "block";
+        notif.style.display = "none";
 
     };
 }
@@ -43,7 +49,7 @@ const btnCalcularReceta = document.getElementById("btnCalcular");
 const btnDescargarReceta = document.getElementById("btnDescargar");
 const btnCoffee = document.getElementById("coffee");
 const libreta = document.querySelector("#menuM");
-const abreLibreta = document.querySelector("#btnAbreLibreta");
+const abreLibreta = document.querySelector("#open");
 const cierraLibreta = document.querySelector("#btnCierraLibreta");
 const anotarLibreta = document.querySelector("#anotar");
 const borrarRecetas = document.querySelector("#btnBorraTodo");
@@ -362,7 +368,6 @@ function borraReceta(idABorrar) {
         }
     })
 }
-//reemplazar por un toggle
 
 function cerrarLibreta() {
     libreta.style.display = "none";
@@ -371,7 +376,7 @@ function cerrarLibreta() {
 
 function abrirLibreta() {
     libreta.style.display = "block";
-    
+
 };
 
 
