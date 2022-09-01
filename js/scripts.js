@@ -353,6 +353,7 @@ function borraReceta(idABorrar) {
     }).then((result) => {
         if (result.isConfirmed) {
             sessionStorage.removeItem(identificador);
+            cuentaRecetas();
             Toastify({
                 gravity: "bottom", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
