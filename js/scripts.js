@@ -2,11 +2,26 @@
 
 document.getElementById('formulario').addEventListener('submit', function (evt) {
     evt.preventDefault();
-})
- 
+});
+sessionStorage.clear();
+const laLibreta = document.getElementById("libretaCompleta");
+const avisoVacio = document.getElementById("recetarioVacio");
+
+function cuentaRecetas() {
+
+    if (sessionStorage.length > 0) {
+        laLibreta.style.display = "block";
+        avisoVacio.style.display = "none";
+    } else {
+        laLibreta.style.display = "none";
+        avisoVacio.style.display = "block";
+
+    };
+}
+
 const traerDatos = async () => {
     const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json');
-    const data = await response.json();   
+    const data = await response.json();
     totalRecetas = data;
 };
 
@@ -27,15 +42,17 @@ const traerDatos = async () => {
 const btnCalcularReceta = document.getElementById("btnCalcular");
 const btnDescargarReceta = document.getElementById("btnDescargar");
 const btnCoffee = document.getElementById("coffee");
-const abreLibreta = document.getElementById("abre-libreta");
-const libreta = document.querySelector("#libreta");
+const libreta = document.querySelector("#menuM");
+const abreLibreta = document.querySelector("#btnAbreLibreta");
+const cierraLibreta = document.querySelector("#btnCierraLibreta");
 const anotarLibreta = document.querySelector("#anotar");
-const borrarRecetas = document.querySelector("#borraRecetas");
+const borrarRecetas = document.querySelector("#btnBorraTodo");
 let infoExtra = document.querySelector("#infoAdicional");
 let btnDescarga = document.querySelector("#btnDescargar");
+const hojaRecetario = document.getElementById("recetario-lista");
 
-
-
+//Chequea si hay recetas en la sesion
+cuentaRecetas();
 // Funcion Principal
 
 function calculaReceta(calcula) {
@@ -50,6 +67,7 @@ function calculaReceta(calcula) {
     const cantidadPanes = document.getElementById("cantidad").value;
     const errorReceta = document.querySelector("#error-receta");
     const errorCantidad = document.querySelector("#error-cantidad");
+
     idItemLibreta = Math.round(Math.random() * 3577874);
     infoExtra.classList.remove("muestra");
     btnDescarga.classList.remove("muestra");
@@ -131,6 +149,8 @@ function calculaReceta(calcula) {
             let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
 
             // Optimizar generacion de estas tablas con data. Habrá que modificar los objetos.
+
+            // Prueba de iteracion de objeto.
 
             let recetaHeader = `
         <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
@@ -238,20 +258,10 @@ function modalCoffee() {
 
 }
 
-let contadorRecetas = document.querySelector("#contador");
 
-function cuentaRecetas() {
-    let contadorStorage = localStorage.length;
-    contadorRecetas.innerHTML = "";
-    contadorRecetas.insertAdjacentHTML('afterbegin', contadorStorage);
-};
 
-/* function anotarReceta() {
-    let idContenido = idItemLibreta;
-    let contenido = recetaData;
-    localStorage.setItem(idContenido, contenido);
-    cuentaRecetas();
-} */
+
+
 
 function Nota(idNota, dataNota, fechaNota) {
     this.idNota = idNota;
@@ -261,24 +271,47 @@ function Nota(idNota, dataNota, fechaNota) {
 
 let notas = [];
 
-function anotarReceta() {
-    let idContenido = idItemLibreta;
-    let contenido = recetaData;
-    let fecha = new Date();
-    let notaEscribir = new Nota(idContenido, contenido, fecha);
-    localStorage.setItem(idContenido, JSON.stringify(notaEscribir));
-    cuentaRecetas();
-    Toastify({
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        text: "Receta guardada correctamente.",
-        duration: 3000
+// funcion para guardar una receta
 
-    }).showToast();
+
+function anotarReceta() {
+    Swal.fire({
+        title: "¿Desea guardar la receta?",
+        text: "Escriba un nombre para la receta:",
+        input: 'text',
+        showCancelButton: true,
+
+
+
+    }).then((result) => {
+        if (result.value) {
+            let recetaName = result.value;
+            let idContenido = idItemLibreta;
+            let contenido = recetaData;
+            let fecha = new Date();
+            let notaEscribir = new Nota(idContenido, recetaName, contenido, fecha);
+            sessionStorage.setItem(idContenido, JSON.stringify(notaEscribir));
+            // crea el elemento en el recetario
+            let dataRecetario = `
+            <tr id="${idContenido}">
+            <td class="t-center">${recetaName}</td>
+            <td class="t-center"><i class="fa-solid fa-trash mediumIcon" onclick="borraReceta('${idContenido}')"></i></td></tr>`
+            hojaRecetario.innerHTML += dataRecetario;
+            cuentaRecetas();
+            Toastify({
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                text: "La receta llamada " + recetaName + " fue guardada correctamente.",
+                duration: 3000
+
+            }).showToast();
+        }
+    });
+
 
 }
 
-cuentaRecetas();
+
 
 borrarRecetas.addEventListener('click', () => {
 
@@ -292,7 +325,8 @@ borrarRecetas.addEventListener('click', () => {
 
     }).then((result) => {
         if (result.isConfirmed) {
-            localStorage.clear();
+            sessionStorage.clear();
+            hojaRecetario.innerHTML = "";
             cuentaRecetas();
             Toastify({
                 gravity: "bottom", // `top` or `bottom`
@@ -305,30 +339,47 @@ borrarRecetas.addEventListener('click', () => {
 
 })
 
-/* function borraReceta() {
-    localStorage.clear();
-    cuentaRecetas();
-    Toastify({
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        text: "Receta eliminada correctamente de la libreta.",
-        duration: 2000
-    }).showToast();
-}; */
 
-function abreCierraLibreta() {
-    let botonAbreCierra = document.querySelector("#toggleReceta");
-    libreta.classList.toggle("muestra");
-    botonAbreCierra.classList.toggle("rotate");
+function borraReceta(idABorrar) {
+    let identificador = idABorrar;
+    Swal.fire({
+        title: 'Borrar receta',
+        text: '¿Realmente desea esta receta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, borrarla.',
+        cancelButtonText: 'No, dejarla ahí.'
 
+    }).then((result) => {
+        if (result.isConfirmed) {
+            sessionStorage.removeItem(identificador);
+            Toastify({
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                text: "Receta eliminada correctamente.",
+                duration: 2000
+            }).showToast();
+        }
+    })
+}
+//reemplazar por un toggle
+
+function cerrarLibreta() {
+    libreta.style.display = "none";
 
 };
+
+function abrirLibreta() {
+    libreta.style.display = "block";
+    
+};
+
 
 // Se agrega el listener al boton y se ejecuta funcion al hacer click.
 
 btnCalcularReceta.addEventListener("click", calculaReceta);
 btnDescargarReceta.addEventListener("click", descargaReceta);
 btnCoffee.addEventListener("click", modalCoffee);
-abreLibreta.addEventListener("click", abreCierraLibreta);
 anotarLibreta.addEventListener("click", anotarReceta);
-/* borrarRecetas.addEventListener("click", borraReceta); */
+abreLibreta.addEventListener("click", abrirLibreta);
+cierraLibreta.addEventListener("click", cerrarLibreta);

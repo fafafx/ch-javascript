@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            /* Reset general */
+            border: 0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* .mobileMenu {
+  display: none; } */
+
+        /*Menu Movil*/
+        .mobileMenu {
+            width: 20vw;
+            height: 100vh;
+            position: fixed;
+            z-index: 666;
+            background-color: #a0025e;
+        }
+
+        .mMovil {
+            width: 60vw;
+            height: 100vh;
+        }
+
+        .mMovil ul {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .mMovil ul li {
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .mMovil ul li a {
+            color: white;
+            font-weight: 500;
+        }
+
+        .closeBtn {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 35px;
+            top: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menuM" class="mobileMenu">
+
+        <div id="close" class="closeBtn"><img src="img/CLOSE.png" alt="boton para cerrar menu movil">
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -15,18 +15,30 @@
 </head>
 
 <body>
+    <div id="open" class="openBtn"><img src="img/CLOSE.png" alt="boton para cerrar menu movil"
+        id="btnAbreLibreta"></div>
+    <div id="menuM" class="mobileMenu">
+        <div id="close" class="openCloseBtn"><img src="img/CLOSE.png" alt="boton para cerrar menu movil"
+                id="btnCierraLibreta"></div>
 
-    <!-- Componente libreta -->
-    <div class="libretaRecetas t-center">
-        <div id="abre-libreta" class="abreLibreta"><i class="fa-solid fa-rectangle-list"></i> Libreta de recetas <i
-                id="toggleReceta" class=" fa-solid fa-angle-up "></i> </div>
-        <div id="libreta" class="bg-white">
-            <p class="justify">
-                <span>Recetas Guardadas: <span id="contador"></span></span>
-                <span id="borraRecetas">Borrar recetas</span>
-            </p>
+        <h2>Recetario</h2>
+        <br>
+        <p class="t-justify">Este listado estará disponible mientras mantenga la pagina abierta. Si  actualiza o cierra la pestaña/navegador, toda la información sera eliminada.</p> <br>
+        <h3 id="recetarioVacio">El recetario está vacío.</h3>
+        <div id="libretaCompleta" >
+            <table class="tablaLibreta">
+                <thead class="t-center">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="recetario-lista">
+                </tbody>
+            </table>
+            <br>
+            <button id="btnBorraTodo">Vaciar Recetario</button>
         </div>
-    </div>
     </div>
     <header>
         <nav class="t-center"><a class="logo" href="">
@@ -49,7 +61,7 @@
                         </div>
                         <div class="">
                             <h3 class="titulos t-center">Unidades</h3><input id="cantidad" class="app-form"
-                                type="number" min="1" pattern="^[0-9]+" name="cantidades"
+                                type="number" min="1" max="100" pattern="^[0-9]+" name="cantidades"
                                 placeholder="Ingrese candidad.">
                             <span id="error-cantidad" class="error"><i class="fa-solid fa-triangle-exclamation"></i>
                                 Ingrese cantidad de unidades a calcular.</span>
