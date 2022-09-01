@@ -1,6 +1,6 @@
 // Deshabilita funcion submit del formulario.
 
-document.getElementById('formulario').addEventListener('submit', function (evt) {
+document.getElementById("formulario").addEventListener('submit', function (evt) {
     evt.preventDefault();
 });
 //Fuerza el vaciado del session storage, esto debido a que quiero que esté vacía la libreta al recargar la pagina.

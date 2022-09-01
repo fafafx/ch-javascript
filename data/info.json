@@ -5,11 +5,11 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
+      "agua": 70,
+      "levadura": 5,
+      "sal": 2,
+      "grasa": 0,
+      "descripcion": "Descripcion",
       "conMasaMadre": true
     }
   },
@@ -19,12 +19,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 55,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 20,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
 
@@ -34,12 +34,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 65,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 0,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
   {
@@ -48,12 +48,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 50,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 40,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
   {
@@ -62,11 +62,11 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
+      "agua": 70,
+      "levadura": 5,
+      "sal": 2,
+      "grasa": 0,
+      "descripcion": "Descripcion",
       "conMasaMadre": true
     }
   },
@@ -76,12 +76,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 60,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 60,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
   {
@@ -90,12 +90,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 60,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 70,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
   {
@@ -104,11 +104,11 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
+      "agua": 70,
+      "levadura": 10,
+      "sal": 2,
       "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
+      "descripcion": "Descripcion",
       "conMasaMadre": true
     }
   },
@@ -118,12 +118,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 60,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 20,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   },
   {
@@ -132,12 +132,12 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 100,
-      "levadura": 100,
-      "sal": 100,
-      "grasa": 100,
-      "descripcion": "Descripcion de Ciabatta",
-      "conMasaMadre": true
+      "agua": 50,
+      "levadura": 10,
+      "sal": 2,
+      "grasa": 25,
+      "descripcion": "Descripcion",
+      "conMasaMadre": false
     }
   }
 ]
