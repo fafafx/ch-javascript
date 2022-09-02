@@ -371,11 +371,12 @@ function borraReceta(idABorrar) {
 
 function cerrarLibreta() {
     libreta.style.display = "none";
-
+    document.body.classList.remove("no-scroll");
 };
 
 function abrirLibreta() {
     libreta.style.display = "block";
+    document.body.classList.add("no-scroll");
 
 };
 

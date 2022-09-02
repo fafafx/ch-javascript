@@ -12,6 +12,10 @@
 
 }
 
+.no-scroll {
+    overflow-y: hidden;
+}
+
 /* Mobile first */
 
 
@@ -22,6 +26,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+
 }
 
 h1,
@@ -690,9 +695,17 @@ nav ul a {
     border-right: 1px solid $main-ultra-light-color;
     display: none;
 
+
 }
 
+.t-right {
+    text-align: right;
+}
 
+#close {
+    width: 100%;
+    margin-bottom: 30px;
+}
 
 .mMovil {
     width: 60vw;
@@ -718,9 +731,6 @@ nav ul a {
 .openCloseBtn {
     width: 20px;
     height: 20px;
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
     cursor: pointer;
     z-index: 99;
 }
@@ -763,13 +773,13 @@ nav ul a {
 }
 
 .notificacion {
-    top:0;
-    right:0;
+    top: 0;
+    right: 0;
     width: 30px;
     height: 30px;
     background-color: red;
     border-radius: 5px;
- 
+
 
 }
 
