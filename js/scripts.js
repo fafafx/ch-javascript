@@ -299,7 +299,7 @@ function anotarReceta() {
             sessionStorage.setItem(idContenido, JSON.stringify(notaEscribir));
             // crea el elemento en el recetario
             let dataRecetario = `
-            <tr id="${idContenido}">
+            <tr id="${idItemLibreta}">
             <td class="t-center">${recetaName}</td>
             <td class="t-center"><i class="fa-solid fa-trash mediumIcon" onclick="borraReceta('${idContenido}')"></i></td></tr>`
             hojaRecetario.innerHTML += dataRecetario;
