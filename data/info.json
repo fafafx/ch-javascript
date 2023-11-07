@@ -34,8 +34,8 @@
     "ingredientes": {
       "harina": 100,
       "detalleHarina": "50% harina 000 + 50% harina 0000",
-      "agua": 65,
-      "levadura": 10,
+      "agua": 60,
+      "levadura": 1,
       "sal": 2,
       "grasa": 0,
       "descripcion": "Descripcion",
