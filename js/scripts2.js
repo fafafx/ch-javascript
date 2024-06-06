@@ -58,6 +58,33 @@ const hojaRecetario = document.getElementById("recetario-lista");
 //Chequea si hay recetas en la sesion
 cuentaRecetas();
 
+// Función para convertir cantidades a kilogramos y gramos
+function convertirAKg(cantidad) {
+    if (cantidad >= 1000) {
+        const kg = Math.floor(cantidad / 1000);
+        const gramos = cantidad % 1000;
+        return `${kg}kg ${gramos}grs`;
+    } else {
+        return `${cantidad}grs`;
+    }
+}
+
+// Modificar la función preparaCantidades
+function preparaCantidades(a) {
+    return convertirAKg(Math.ceil(((a * cantidadPanes) * tamano)) * unidadMedida);
+}
+
+// Modificar la función draw
+function draw() {
+    contenido.innerHTML = "";
+    recetaEncabezado.innerHTML = "";
+    recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
+    contenido.insertAdjacentHTML('afterbegin', recetaData);
+    anotarLibreta.classList.add("muestra");
+    infoExtra.classList.add("muestra");
+    btnDescarga.classList.add("muestra");
+}
+
 // Función Principal
 function calculaReceta(calcula) {
     const contenidoResultante = document.getElementById("to-print");
@@ -124,11 +151,8 @@ function calculaReceta(calcula) {
             let nombreImagen = (nombre).toLowerCase().split(" ", 1);
 
             //Verifica si la receta puede usar masa madre y lo alerta.
-            conMasaMadre == true ? alertaMM = (`<span class="aviso">(*)</span>`) : alertaMM = ("");
+            conMasaMadre == true ? alertaMM = `<span class="aviso">(*)</span>` : alertaMM = "";
 
-            // Optimizar generación de estas tablas con data. Habrá que modificar los objetos.
-
-            // Prueba de iteración de objeto.
             let harinaTotal = preparaCantidades(harina);
             let aguaTotal = preparaCantidades(agua);
             let levaduraTotal = preparaCantidades(levadura);
@@ -142,24 +166,75 @@ function calculaReceta(calcula) {
             let porcentajeGrasa = porcentajePanadero(grasaTotal, harinaTotal);
             let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
 
-            //Se rellenan los bloques HTML
-            function draw() {
-                contenido.innerHTML = "";
-                recetaEncabezado.innerHTML = "";
-                recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
-                contenido.insertAdjacentHTML('afterbegin', recetaData);
-                anotarLibreta.classList.add("muestra");
-                infoExtra.classList.add("muestra");
-                btnDescarga.classList.add("muestra");
-            }
+            let recetaHeader = `
+        <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
+        <h3 class="titulos t-center">${nombre}</h3>
+        <hr>
+        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${gramajeUnidad} ${medidaNombre} aproximadamente (Tamaño ${tamanoPieza}).
+        </em></p>`;
 
-            anotarLibreta.classList.remove("muestra");
-            recetaEncabezado.innerHTML = "";
+            let loading = `<div id="cargando" class="loading"><img class="canvas" src="img/loadGif.webp" alt="cargando..."></div>`;
+
+            recetaData = `
+        <table class="data-table t-center">
+        <!-- Cabecera de la tabla -->
+        <thead>
+        <tr>
+        <th class="t-center">Ingrediente</th>
+        <th class="t-center">Cantidad</th>
+        <th class="t-center">%</th>
+        </tr>
+        </thead>
+        <tbody id="informacion">
+            
+        <tr>
+        <td>Harina</td>
+        <td>${harinaTotal}</td>
+        <td>${porcentajeHarina}%</td>
+        </tr>
+
+        <tr>
+        <td>Agua</td>
+        <td>${aguaTotal}</td>
+        <td>${porcentajeAgua}%</td>
+        </tr>
+
+        <tr>
+        <td>Levadura ${alertaMM}</td>
+        <td>${levaduraTotal}</td>
+        <td>${porcentajeLevadura}%</td>
+        </tr>
+
+        <tr>
+        <td>Sal</td>
+        <td>${salTotal}</td>
+        <td>${porcentajeSal}%</td>
+        </tr>
+
+        <tr>
+        <td>Materia grasa</td>
+        <td>${grasaTotal}</td>
+        <td>${porcentajeGrasa}%</td>
+        </tr>
+
+        <tr>
+        <td></td>
+        <td>Total masa</td>
+        <td>${masaTotal}</td>
+        </tr>
+        </tbody>
+        </table>`;
+
+            //Se rellenan los bloques HTML
             contenido.innerHTML = "";
-            contenido.insertAdjacentHTML('afterbegin', loading);
-            errorCantidad.style.display = "none";
+            recetaEncabezado.innerHTML = "";
+            recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
+            contenido.insertAdjacentHTML('afterbegin', recetaData);
+            anotarLibreta.classList.add("muestra");
+            infoExtra.classList.add("muestra");
+            btnDescarga.classList.add("muestra");
+
             contenidoResultante.style.display = "block";
-            setTimeout(draw, 2000);
         } else {
             errorCantidad.style.display = "block";
             calcula.preventDefault();
