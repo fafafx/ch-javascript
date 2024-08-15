@@ -1,358 +1,224 @@
-// Deshabilita funcion submit del formulario.
-document.getElementById("formulario").addEventListener('submit', function (evt) {
-    evt.preventDefault();
-});
-
-//Fuerza el vaciado del session storage, esto debido a que quiero que esté vacía la libreta al recargar la pagina.
+// Configura los eventos iniciales
+document.getElementById("formulario").addEventListener('submit', evt => evt.preventDefault());
 sessionStorage.clear();
 
-const laLibreta = document.getElementById("libretaCompleta");
-const avisoVacio = document.getElementById("recetarioVacio");
-const notif = document.getElementById("notificacion");
-const contador = document.getElementById("counter");
-
-// cuenta las recetas del LS, oculta y muestra elementos dependiendo del valor.
-function cuentaRecetas() {
-    if (sessionStorage.length > 0) {
-        contador.innerHTML = sessionStorage.length;
-        laLibreta.style.display = "block";
-        avisoVacio.style.display = "none";
-        notif.style.display = "block";
-    } else {
-        laLibreta.style.display = "none";
-        avisoVacio.style.display = "block";
-        notif.style.display = "none";
-    }
-}
-
-//trae la data de un JSON.
-const traerDatos = async () => {
-    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json');
-    const data = await response.json();
-    totalRecetas = data;
+// Variables globales
+const elements = {
+    laLibreta: document.getElementById("libretaCompleta"),
+    avisoVacio: document.getElementById("recetarioVacio"),
+    notif: document.getElementById("notificacion"),
+    contador: document.getElementById("counter"),
+    selectReceta: document.getElementById("select-receta"),
+    contenidoResultante: document.getElementById("to-print"),
+    recetaEncabezado: document.querySelector("#recetaHeader"),
+    contenido: document.querySelector("#recetaPrint"),
+    errorReceta: document.querySelector("#error-receta"),
+    errorCantidad: document.querySelector("#error-cantidad"),
+    infoExtra: document.querySelector("#infoAdicional"),
+    hojaRecetario: document.getElementById("recetario-lista"),
+    btnCalcularReceta: document.getElementById("btnCalcular"),
+    btnDescargarReceta: document.getElementById("btnDescargar"),
+    anotarLibreta: document.querySelector("#anotar"),
+    borrarRecetas: document.querySelector("#btnBorraTodo"),
+    libreta: document.querySelector("#menuM"),
+    abreLibreta: document.querySelector("#open"),
+    cierraLibreta: document.querySelector("#btnCierraLibreta"),
+    btnCoffee: document.getElementById("coffee")
 };
 
-//Ejecuta el fetch y completa el select con la data traida.
-(async () => {
-    await traerDatos();
-    let opcionesSelect = totalRecetas.map(e => {
-        return `<option value="${e.id}">${e.nombre}</option>`;
-    });
-    // Escribe HTML de los options del select.
-    document.getElementById("select-receta").innerHTML = '<option value="0" disabled selected hidden>Seleccione receta...</option>' + opcionesSelect;
-})();
+// Función para actualizar el estado de la libreta
+const actualizarEstadoLibreta = () => {
+    const hasRecetas = sessionStorage.length > 0;
+    elements.contador.innerHTML = hasRecetas ? sessionStorage.length : 0;
+    elements.laLibreta.style.display = hasRecetas ? "block" : "none";
+    elements.avisoVacio.style.display = hasRecetas ? "none" : "block";
+    elements.notif.style.display = hasRecetas ? "block" : "none";
+};
 
-// Referencia a elementos dentro del DOM 
-const btnCalcularReceta = document.getElementById("btnCalcular");
-const btnDescargarReceta = document.getElementById("btnDescargar");
-const btnCoffee = document.getElementById("coffee");
-const libreta = document.querySelector("#menuM");
-const abreLibreta = document.querySelector("#open");
-const cierraLibreta = document.querySelector("#btnCierraLibreta");
-const anotarLibreta = document.querySelector("#anotar");
-const borrarRecetas = document.querySelector("#btnBorraTodo");
-let infoExtra = document.querySelector("#infoAdicional");
-let btnDescarga = document.querySelector("#btnDescargar");
-const hojaRecetario = document.getElementById("recetario-lista");
+// Función para obtener y cargar datos de recetas
+const cargarDatosRecetas = async () => {
+    const response = await fetch('https://fafafx.github.io/ch-javascript/data/info.json');
+    const recetas = await response.json();
+    elements.selectReceta.innerHTML = `
+        <option value="0" disabled selected hidden>Seleccione receta...</option>
+        ${recetas.map(e => `<option value="${e.id}">${e.nombre}</option>`).join('')}
+    `;
+    return recetas;
+};
 
-//Chequea si hay recetas en la sesion
-cuentaRecetas();
-
-// Función para convertir cantidades a kilogramos y gramos
-function convertirAKg(cantidad) {
-    if (cantidad >= 1000) {
-        const kg = Math.floor(cantidad / 1000);
-        const gramos = cantidad % 1000;
-        return `${kg}kg ${gramos}grs`;
-    } else {
-        return `${cantidad}grs`;
-    }
-}
-
-// Modificar la función preparaCantidades
-function preparaCantidades(a) {
-    return convertirAKg(Math.ceil(((a * cantidadPanes) * tamano)) * unidadMedida);
-}
-
-// Modificar la función draw
-function draw() {
-    contenido.innerHTML = "";
-    recetaEncabezado.innerHTML = "";
-    recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
-    contenido.insertAdjacentHTML('afterbegin', recetaData);
-    anotarLibreta.classList.add("muestra");
-    infoExtra.classList.add("muestra");
-    btnDescarga.classList.add("muestra");
-}
-
-// Función Principal
-function calculaReceta(calcula) {
-    const contenidoResultante = document.getElementById("to-print");
-    const idSeleccionado = parseInt(document.getElementById("select-receta").value);
-    const contenido = document.querySelector("#recetaPrint");
-    const recetaEncabezado = document.querySelector("#recetaHeader");
+// Función para calcular y mostrar receta
+const calcularReceta = evt => {
+    evt.preventDefault();
+    const idSeleccionado = parseInt(elements.selectReceta.value);
+    const cantidadPanes = document.getElementById("cantidad").value;
     const cambiaTamano = document.getElementById("gramaje-unidad").checked;
     const checkOnzas = document.getElementById("onzas").checked;
-    let tamano = 1;
-    let tamanoPieza = "normal";
-    const cantidadPanes = document.getElementById("cantidad").value;
-    const errorReceta = document.querySelector("#error-receta");
-    const errorCantidad = document.querySelector("#error-cantidad");
 
-    idItemLibreta = Math.round(Math.random() * 3577874);
-    infoExtra.classList.remove("muestra");
-    btnDescarga.classList.remove("muestra");
+    if (idSeleccionado === 0) {
+        elements.errorReceta.style.display = "block";
+        return;
+    }
+    elements.errorReceta.style.display = "none";
 
-    // Valida que haya una receta seleccionada, si no lo está, lo alerta.
-    if (idSeleccionado == 0) {
-        errorReceta.style.display = "block";
-        calcula.preventDefault();
-    } else {
-        errorReceta.style.display = "none";
-        // Valida si el campo de unidades no está vacío. Si lo está, lo alerta.
-        if (cantidadPanes !== "") {
-            //Chequea si el toggle de tamaño está marcado, y reduce los valores a un 80%
-            if (cambiaTamano) {
-                tamano = 0.8;
-                tamanoPieza = "pequeño";
-            } else {
-                console.log("Se mantiene la proporción original");
-            }
+    if (!cantidadPanes) {
+        elements.errorCantidad.style.display = "block";
+        return;
+    }
+    elements.errorCantidad.style.display = "none";
 
-            //Chequea si es onza o grs.
-            let unidadMedida = 1;
-            let medidaNombre = "grs";
-            if (checkOnzas) {
-                unidadMedida = 0.035274;
-                medidaNombre = "oz";
-                console.log("Se cambia la medida a onzas");
-            } else {
-                console.log("Se mantiene la medida en gramos");
-            }
+    const tamano = cambiaTamano ? 0.8 : 1;
+    const unidadMedida = checkOnzas ? 0.035274 : 1;
+    const medidaNombre = checkOnzas ? "oz" : "grs";
 
-            // Filtra array por id usando find.
-            let recetaFiltrada = totalRecetas.find(receta => receta.id == idSeleccionado);
-            console.log(recetaFiltrada);
-            let {
-                nombre,
-                ingredientes: {
-                    harina,
-                    agua,
-                    levadura,
-                    sal,
-                    grasa,
-                    descripcion,
-                    conMasaMadre
-                }
-            } = recetaFiltrada;
+    const recetaFiltrada = totalRecetas.find(receta => receta.id === idSeleccionado);
+    const { nombre, ingredientes } = recetaFiltrada;
+    const { harina, agua, levadura, sal, grasa, conMasaMadre } = ingredientes;
 
-            // Genera una variable para el nombre de la imagen a mostrar, usando como fuente el nombre del producto en minúsculas. Si el nombre del producto se compone de varias palabras, se selecciona solo la primera.
-            let alertaMM = "";
-            let nombreImagen = (nombre).toLowerCase().split(" ", 1);
+    const prepararCantidad = a => Math.ceil((a * cantidadPanes) * tamano * unidadMedida);
+    const porcentaje = (a, b) => Math.ceil((a / b) * 100);
 
-            //Verifica si la receta puede usar masa madre y lo alerta.
-            conMasaMadre == true ? alertaMM = `<span class="aviso">(*)</span>` : alertaMM = "";
+    const cantidades = {
+        harina: prepararCantidad(harina),
+        agua: prepararCantidad(agua),
+        levadura: prepararCantidad(levadura),
+        sal: prepararCantidad(sal),
+        grasa: prepararCantidad(grasa),
+        masa: Math.ceil(harina + agua + levadura + sal + grasa)
+    };
 
-            let harinaTotal = preparaCantidades(harina);
-            let aguaTotal = preparaCantidades(agua);
-            let levaduraTotal = preparaCantidades(levadura);
-            let salTotal = preparaCantidades(sal);
-            let grasaTotal = preparaCantidades(grasa);
-            let masaTotal = Math.ceil(harinaTotal + aguaTotal + levaduraTotal + salTotal + grasaTotal);
-            let porcentajeHarina = porcentajePanadero(harinaTotal, harinaTotal);
-            let porcentajeAgua = porcentajePanadero(aguaTotal, harinaTotal);
-            let porcentajeLevadura = porcentajePanadero(levaduraTotal, harinaTotal);
-            let porcentajeSal = porcentajePanadero(salTotal, harinaTotal);
-            let porcentajeGrasa = porcentajePanadero(grasaTotal, harinaTotal);
-            let gramajeUnidad = Math.ceil(masaTotal / cantidadPanes);
+    const porcentajes = {
+        harina: porcentaje(cantidades.harina, cantidades.harina),
+        agua: porcentaje(cantidades.agua, cantidades.harina),
+        levadura: porcentaje(cantidades.levadura, cantidades.harina),
+        sal: porcentaje(cantidades.sal, cantidades.harina),
+        grasa: porcentaje(cantidades.grasa, cantidades.harina)
+    };
 
-            let recetaHeader = `
-        <p class="t-center space-t-20"><img src="img/panes/${nombreImagen}.png"></p>
+    const recetaHeader = `
+        <p class="t-center space-t-20"><img src="img/panes/${nombre.toLowerCase().split(" ", 1)}.png"></p>
         <h3 class="titulos t-center">${nombre}</h3>
         <hr>
-        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${gramajeUnidad} ${medidaNombre} aproximadamente (Tamaño ${tamanoPieza}).
-        </em></p>`;
+        <p class="disclaimer t-center space-t-20">Cantidades totales para <em>${cantidadPanes} unidades de ${Math.ceil(cantidades.masa / cantidadPanes)} ${medidaNombre} aproximadamente (Tamaño ${tamano === 0.8 ? "pequeño" : "normal"}).</em></p>
+    `;
 
-            let loading = `<div id="cargando" class="loading"><img class="canvas" src="img/loadGif.webp" alt="cargando..."></div>`;
-
-            recetaData = `
+    const recetaData = `
         <table class="data-table t-center">
-        <!-- Cabecera de la tabla -->
-        <thead>
-        <tr>
-        <th class="t-center">Ingrediente</th>
-        <th class="t-center">Cantidad</th>
-        <th class="t-center">%</th>
-        </tr>
-        </thead>
-        <tbody id="informacion">
-            
-        <tr>
-        <td>Harina</td>
-        <td>${harinaTotal}</td>
-        <td>${porcentajeHarina}%</td>
-        </tr>
+            <thead>
+                <tr>
+                    <th class="t-center">Ingrediente</th>
+                    <th class="t-center">Cantidad</th>
+                    <th class="t-center">%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Harina</td><td>${cantidades.harina.toFixed(0)} ${medidaNombre}.</td><td>${porcentajes.harina}%</td></tr>
+                <tr><td>Agua</td><td>${cantidades.agua.toFixed(0)} ${medidaNombre}.</td><td>${porcentajes.agua}%</td></tr>
+                <tr><td>Levadura ${conMasaMadre ? '<span class="aviso">(*)</span>' : ''}</td><td>${cantidades.levadura.toFixed(0)} ${medidaNombre}.</td><td>${porcentajes.levadura}%</td></tr>
+                <tr><td>Sal</td><td>${cantidades.sal.toFixed(0)} ${medidaNombre}.</td><td>${porcentajes.sal}%</td></tr>
+                <tr><td>Materia grasa</td><td>${cantidades.grasa.toFixed(0)} ${medidaNombre}.</td><td>${porcentajes.grasa}%</td></tr>
+                <tr><td></td><td>Total masa</td><td>${cantidades.masa.toFixed(0)} ${medidaNombre}.</td></tr>
+            </tbody>
+        </table>
+    `;
 
-        <tr>
-        <td>Agua</td>
-        <td>${aguaTotal}</td>
-        <td>${porcentajeAgua}%</td>
-        </tr>
+    elements.contenidoResultante.style.display = "block";
+    elements.contenido.innerHTML = "";
+    elements.recetaEncabezado.innerHTML = "";
+    elements.contenido.insertAdjacentHTML('afterbegin', `<div id="cargando" class="loading"><img class="canvas" src="img/loadGif.webp" alt="cargando..."></div>`);
+    setTimeout(() => {
+        elements.recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
+        elements.contenido.insertAdjacentHTML('afterbegin', recetaData);
+        elements.anotarLibreta.classList.add("muestra");
+        elements.infoExtra.classList.add("muestra");
+        elements.btnDescargarReceta.classList.add("muestra");
+    }, 2000);
+};
 
-        <tr>
-        <td>Levadura ${alertaMM}</td>
-        <td>${levaduraTotal}</td>
-        <td>${porcentajeLevadura}%</td>
-        </tr>
-
-        <tr>
-        <td>Sal</td>
-        <td>${salTotal}</td>
-        <td>${porcentajeSal}%</td>
-        </tr>
-
-        <tr>
-        <td>Materia grasa</td>
-        <td>${grasaTotal}</td>
-        <td>${porcentajeGrasa}%</td>
-        </tr>
-
-        <tr>
-        <td></td>
-        <td>Total masa</td>
-        <td>${masaTotal}</td>
-        </tr>
-        </tbody>
-        </table>`;
-
-            //Se rellenan los bloques HTML
-            contenido.innerHTML = "";
-            recetaEncabezado.innerHTML = "";
-            recetaEncabezado.insertAdjacentHTML('afterbegin', recetaHeader);
-            contenido.insertAdjacentHTML('afterbegin', recetaData);
-            anotarLibreta.classList.add("muestra");
-            infoExtra.classList.add("muestra");
-            btnDescarga.classList.add("muestra");
-
-            contenidoResultante.style.display = "block";
-        } else {
-            errorCantidad.style.display = "block";
-            calcula.preventDefault();
-        }
-    }
-}
-
-// Funciones de la libreta
-function descargaReceta() {
+// Función para mostrar notificación de descarga
+const mostrarToast = (mensaje) => {
     Toastify({
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        text: "Se está procesando la descarga de la receta en PDF.",
+        gravity: "bottom",
+        position: "right",
+        text: mensaje,
         duration: 3000
     }).showToast();
-}
+};
 
-// Funciones de la libreta
-function Nota(idNota, dataNota, fechaNota) {
-    this.idNota = idNota;
-    this.fechaNota = fechaNota;
-    this.dataNota = dataNota;
-}
+// Función para descargar receta
+const descargaReceta = () => mostrarToast("Se está procesando la descarga de la receta en PDF.");
 
-let notas = [];
-
-// función para guardar una receta
-function anotarReceta() {
-    Swal.fire({
+// Función para anotar receta
+const anotarReceta = async () => {
+    const { value: recetaName } = await Swal.fire({
         title: "¿Desea guardar la receta?",
         text: "Escriba un nombre para la receta:",
         input: 'text',
         showCancelButton: true,
-    }).then((result) => {
-        if (result.value) {
-            let recetaName = result.value;
-            let idContenido = idItemLibreta;
-            let contenido = recetaData;
-            let fecha = new Date();
-            let notaEscribir = new Nota(idContenido, recetaName, contenido, fecha);
-            sessionStorage.setItem(idContenido, JSON.stringify(notaEscribir));
-            // crea el elemento en el recetario
-            let dataRecetario = `
-                <tr id="${idItemLibreta}">
+    });
+
+    if (recetaName) {
+        const contenido = elements.contenido.innerHTML;
+        idItemLibreta = Math.round(Math.random() * 3577874);
+        const nota = { idNota: idItemLibreta, fechaNota: new Date(), dataNota: recetaName, contenido };
+        sessionStorage.setItem(idItemLibreta, JSON.stringify(nota));
+        const dataRecetario = `
+            <tr id="${idItemLibreta}">
                 <td class="t-center">${recetaName}</td>
-                <td class="t-center"><i class="fa-solid fa-trash mediumIcon" onclick="borraReceta('${idContenido}')"></i></td></tr>`;
-            hojaRecetario.innerHTML += dataRecetario;
-            cuentaRecetas();
-            Toastify({
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                text: "La receta llamada " + recetaName + " fue guardada correctamente.",
-                duration: 3000
-            }).showToast();
-        }
-    });
-}
+                <td class="t-center"><i class="fa-solid fa-trash mediumIcon" onclick="borrarReceta('${idItemLibreta}')"></i></td>
+            </tr>
+        `;
+        elements.hojaRecetario.innerHTML += dataRecetario;
+        actualizarEstadoLibreta();
+        mostrarToast(`La receta llamada ${recetaName} fue guardada correctamente.`);
+    }
+};
 
-borrarRecetas.addEventListener('click', () => {
-    Swal.fire({
-        title: 'Vaciar Libreta',
-        text: '¿Realmente desea eliminar todas las recetas guardadas?',
+// Función para borrar receta
+const borrarReceta = async (id) => {
+    const { value: confirmar } = await Swal.fire({
+        title: "¿Desea borrar esta receta?",
+        text: "La receta se eliminará permanentemente.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, borrarlas.',
-        cancelButtonText: 'No, dejarlas ahí.'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            sessionStorage.clear();
-            hojaRecetario.innerHTML = "";
-            cuentaRecetas();
-            Toastify({
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                text: "Recetas eliminadas correctamente.",
-                duration: 2000
-            }).showToast();
-        }
     });
-});
 
-function borraReceta(idABorrar) {
-    let identificador = idABorrar;
-    Swal.fire({
-        title: 'Borrar receta',
-        text: '¿Realmente desea esta receta?',
+    if (confirmar) {
+        sessionStorage.removeItem(id);
+        document.getElementById(id).remove();
+        actualizarEstadoLibreta();
+        mostrarToast("Receta eliminada correctamente.");
+    }
+};
+
+// Función para borrar todas las recetas
+const borrarTodasRecetas = async () => {
+    const { value: confirmar } = await Swal.fire({
+        title: "¿Desea borrar todas las recetas?",
+        text: "Las recetas se eliminarán permanentemente.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, borrarla.',
-        cancelButtonText: 'No, dejarla ahí.'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            sessionStorage.removeItem(identificador);
-            document.getElementById(identificador).remove();
-            cuentaRecetas();
-            Toastify({
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                text: "Receta eliminada correctamente.",
-                duration: 2000
-            }).showToast();
-        }
     });
-}
 
-function cerrarLibreta() {
-    libreta.style.display = "none";
-    document.body.classList.remove("no-scroll");
-}
+    if (confirmar) {
+        sessionStorage.clear();
+        elements.hojaRecetario.innerHTML = "";
+        actualizarEstadoLibreta();
+        mostrarToast("Todas las recetas fueron eliminadas.");
+    }
+};
 
-function abrirLibreta() {
-    libreta.style.display = "block";
-    document.body.classList.add("no-scroll");
-}
+// Inicialización
+const init = async () => {
+    const recetas = await cargarDatosRecetas();
+    elements.btnCalcularReceta.addEventListener('click', calcularReceta);
+    elements.btnDescargarReceta.addEventListener('click', descargaReceta);
+    elements.anotarLibreta.addEventListener('click', anotarReceta);
+    elements.borrarRecetas.addEventListener('click', borrarTodasRecetas);
+    elements.abreLibreta.addEventListener('click', () => elements.libreta.classList.add("muestra"));
+    elements.cierraLibreta.addEventListener('click', () => elements.libreta.classList.remove("muestra"));
 
-// Se agrega el listener al boton y se ejecuta funcion al hacer click.
-btnCalcularReceta.addEventListener("click", calculaReceta);
-btnDescargarReceta.addEventListener("click", descargaReceta);
-anotarLibreta.addEventListener("click", anotarReceta);
-abreLibreta.addEventListener("click", abrirLibreta);
-cierraLibreta.addEventListener("click", cerrarLibreta);
+    actualizarEstadoLibreta();
+};
+
+// Ejecuta la inicialización
+init();
